@@ -1,0 +1,11 @@
+#cover {
+    position: relative;
+    background-color: #fff;
+    padding: 0;
+}
+
+#bio {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
