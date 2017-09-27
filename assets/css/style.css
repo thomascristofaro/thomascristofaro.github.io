@@ -1,11 +1,24 @@
 #cover {
     position: relative;
-    background-color: #fff;
-    padding: 0;
+    background-color: #000;
+    color: #fff;
 }
 
-#bio {
+#home {
     position: absolute;
-    width: 100%;
-    text-align: center;
+}
+
+.cbtn {
+  border-color: #fff;
+  color: #fff;
+}
+
+.cbtn:hover {
+  border-color: #fff;
+  color: #000;
+  background-color: #fff;
+}
+
+.cbtn:focus {
+  box-shadow: none
 }
