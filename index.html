@@ -12,13 +12,17 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+  <link rel="stylesheet" type="text/css" href="assets\slick\slick.css" />
+  <!-- Add the new slick-theme.css if you want the default styling -->
+  <link rel="stylesheet" type="text/css" href="assets\slick\slick-theme.css" />
+
   <link rel="stylesheet" href="assets\css\style.css">
 </head>
 
 <body>
 
-  <section id="cover">
-    <div class="container-fluid" id="home">
+  <section class="sec" id="cover">
+    <div class="container-fluid cont" id="home">
       <div class="row">
         <div class="col-xs-12 col-sm-6 mx-auto">
           <h1 style="font-size: 4rem;">Lorem Ipsum</h1>
@@ -49,23 +53,28 @@
     <div id="particles-js"></div>
   </section>
 
-  <section style="background-color: green">
-    <div class="container-fluid">
+  <section class="sec" style="background-color: green">
+    <div class="container-fluid cont">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6">
-          <h1 style="font-size: 4rem;">Lorem Ipsum</h1>
-          <p style="font-size: 1.25rem; font-weight: 300;">
-            Etiam iaculis mauris nec nulla facilisis, vel viverra justo facilisis. Pellentesque sit amet nunc id lectus vestibulum consequat in et libero.
-          </p>
+          <h1 style="font-size: 4rem;">Progetti</h1>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
-          <h1 style="font-size: 4rem;">Lorem</h1>
-          <p style="font-size: 1.25rem; font-weight: 300;">
-            Etiam iaculis mauris nec nulla facilisis, vel viverra justo facilisis.
-          </p>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-8 mx-auto">
+          <!-- Slider slick -->
+          <div class="slider">
+            <div><h3 class="block">CIAO</h3></div>
+            <div><h3 class="block">CIAO</h3></div>
+            <div><h3 class="block">CIAO</h3></div>
+            <div><h3 class="block">CIAO</h3></div>
+            <div><h3 class="block">CIAO</h3></div>
+            <div><h3 class="block">CIAO</h3></div>
+          </div>
         </div>
       </div>
     </div>
+    <div><canvas id="waves"></canvas></div>
   </section>
 
 
@@ -80,6 +89,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
   <!-- Particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- Sine Waves -->
+  <script src="assets\js\sine-waves.min.js"></script>
+  <!-- Slick -->
+  <script type="text/javascript" src="assets\slick\slick.min.js"></script>
   <!-- Main.js -->
   <script src="assets\js\main.js"></script>
 </body>
