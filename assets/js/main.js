@@ -1,9 +1,16 @@
-particlesJS.load('particles-js', 'assets/particles.json');
+/** Colors **/
+var options = {
+  nColors: 5,
+  colors: ["#3f51b5", "#4caf50", "#ff5722", "#03a9f4", "#9c27b0"],
+  interval: 6000,
+  index: 1
+};
 
 $(function() {
   //margin-top per centrare il contenitore
-  var margin = ($(window).height() / 2) - ($("#home").height() / 2);
-  $("#home").css("margin-top", margin);
+  //var margin = ($(window).height() / 2) - ($("#home").height() / 2) - ($("#name").height()/2);
+  //$("#home").css("margin-top", margin);
+  particlesJS.load('particles-js', 'assets/particles.json');
 
   // Init ScrollMagic
   var controller = new ScrollMagic.Controller();
@@ -17,6 +24,23 @@ $(function() {
       .addTo(controller);
   });
 
+  controller.scrollTo(function(newpos) {
+    TweenMax.to(window, 0.4, {
+      scrollTo: {
+        y: newpos
+      }
+    });
+  });
+
+  $(document).on("click", "a[href^='#']", function(e) {
+    var id = $(this).attr("href");
+    if ($(id).length > 0) {
+      e.preventDefault();
+      // trigger scroll
+      controller.scrollTo(id);
+    }
+  });
+
   //waves
   var waves = wavesfunc();
 
@@ -28,6 +52,8 @@ $(function() {
     centerMode: true,
     centerPadding: '60px'
   });
+
+  setInterval(ChangeBackground, options.interval);
 });
 
 function wavesfunc() {
@@ -35,7 +61,7 @@ function wavesfunc() {
     el: document.getElementById('waves'),
     speed: 4,
     ease: 'SineInOut',
-    wavesWidth: '90%',
+    wavesWidth: '100%',
 
     waves: [{
         timeModifier: 4,
@@ -68,7 +94,6 @@ function wavesfunc() {
         wavelength: 400
       }
     ],
-
     // Called on window resize
     resizeEvent: function() {
       var gradient = this.ctx.createLinearGradient(0, 0, this.width, 0);
@@ -88,4 +113,20 @@ function wavesfunc() {
       gradient = void 0;
     }
   });
+}
+
+function ChangeBackground() {
+  var index = options.index;
+  if(index == (options.nColors-1)) options.index = 0;
+  else options.index += 1;
+  $("#cover").css("background-color", options.colors[index]);
+  $(".cbtn").hover(function() {
+    $(this).css("color", options.colors[index]);
+  }, function() {
+    $(this).css("color", "#fff");
+  });
+  var index2 = index;
+  if(index2 == 0) index2 = 5;
+  else index2 -= 1;
+  $("#projects").css("background-color", options.colors[index2]);
 }
