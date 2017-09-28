@@ -1,13 +1,27 @@
-.sec {
+#particles-js {
+  height: 100vh;
+}
+
+.wavesdim {
+  margin-top: 1vh;
+  margin-left: 1vh;
+  height: 98vh;
+  width: 98vw;
+}
+
+
+section {
     position: relative;
     background-color: #222;
     color: #fff;
+    height: 100vh;
 }
 
-.cont {
+.container-fluid {
     position: absolute;
 }
 
+/**Custom Button**/
 .cbtn {
   border-color: #fff;
   color: #fff;
@@ -23,6 +37,7 @@
   box-shadow: none
 }
 
+/**SLIDER**/
 .block {
   background: #fff;
     color: #3498db;

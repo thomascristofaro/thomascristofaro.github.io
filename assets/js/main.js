@@ -1,9 +1,6 @@
 particlesJS.load('particles-js', 'assets/particles.json');
 
 $(function() {
-  $(window).resize(height);
-  height();
-
   //margin-top per centrare il contenitore
   var margin = ($(window).height() / 2) - ($("#home").height() / 2);
   $("#home").css("margin-top", margin);
@@ -33,25 +30,11 @@ $(function() {
   });
 });
 
-function height() {
-  var h = $(window).height();
-  //var h = screen.height;
-  $("section").height(h + 5);
-  $("#particles-js").height(h);
-  $("canvas").attr("height", h);
-}
-
 function wavesfunc() {
   return new SineWaves({
     el: document.getElementById('waves'),
-
     speed: 4,
-
-    width: $(window).width(),
-    height: $(window).height(),
-
     ease: 'SineInOut',
-
     wavesWidth: '90%',
 
     waves: [{
