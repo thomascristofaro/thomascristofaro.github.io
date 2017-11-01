@@ -1,7 +1,7 @@
 /** Colors **/
 var options = {
-  nColors: 5,
-  colors: ["#3f51b5", "#4caf50", "#ff5722", "#03a9f4", "#9c27b0"],
+  nColors: 4,
+  colors: ["#3f51b5", "#388E3C", "#E64A19", "#9c27b0"],
   interval: 6000,
   index: 1
 };
@@ -126,7 +126,7 @@ function ChangeBackground() {
     $(this).css("color", "#fff");
   });
   var index2 = index;
-  if(index2 == 0) index2 = 5;
+  if(index2 == 0) index2 = options.nColors-1;
   else index2 -= 1;
   $("#projects").css("background-color", options.colors[index2]);
 }
