@@ -1,8 +1,8 @@
 /** Colors **/
 var options = {
   nColors: 4,
-  colors: ["#3f51b5", "#388E3C", "#E64A19", "#9c27b0"],
-  interval: 6000,
+  colors: ["#3f51b5", "#388E3C", "#bf360c", "#9c27b0"],
+  interval: 8000,
   index: 1
 };
 

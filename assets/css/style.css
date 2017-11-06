@@ -20,10 +20,19 @@ section {
 
 .container-fluid {
     position: absolute;
-    margin-top: 10vh;
+    margin-top: 7vh;
 }
 
-/**Custom Button**/
+.curriculum, .curriculum:visited {
+  color: #cccccc
+}
+
+.curriculum:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/** Custom Button **/
 .cbtn {
   border-color: #fff;
   color: #fff;
@@ -40,7 +49,7 @@ section {
   box-shadow: none
 }
 
-/**SLIDER**/
+/** SLIDER **/
 .block {
   background: #fff;
     color: #3498db;

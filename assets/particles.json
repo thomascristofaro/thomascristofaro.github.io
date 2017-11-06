@@ -4,7 +4,7 @@
       "value": 80,
       "density": {
         "enable": true,
-        "value_area": 320.6824121731046
+        "value_area": 320
       }
     },
     "color": {
@@ -36,7 +36,7 @@
       }
     },
     "size": {
-      "value": 3,
+      "value": 2,
       "random": true,
       "anim": {
         "enable": false,
@@ -47,10 +47,10 @@
     },
     "line_linked": {
       "enable": true,
-      "distance": 150,
+      "distance": 200,
       "color": "#ffffff",
-      "opacity": 0.26456299004281125,
-      "width": 0.8017060304327615
+      "opacity": 0.2,
+      "width": 0.7
     },
     "move": {
       "enable": true,
