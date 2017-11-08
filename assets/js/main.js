@@ -7,10 +7,23 @@ var options = {
 };
 
 $(function() {
-  //margin-top per centrare il contenitore
-  //var margin = ($(window).height() / 2) - ($("#home").height() / 2) - ($("#name").height()/2);
-  //$("#home").css("margin-top", margin);
-  particlesJS.load('particles-js', 'assets/particles.json');
+
+  if($(window).width() <= 575) {
+    $("li:eq(3)").text("Esperienze nello sviluppo software");
+    $("#links").addClass("text-center");
+  }
+  //particlesJS.load('particles-js', 'assets/particles.json');
+  /*$('#cover').circleMagic({
+    radius: 35,
+    density: .3,
+    color: 'rgba(255,255,255, .1)',
+    //color: 'random',
+    clearOffset: .3
+  });*/
+  $('#particles-js').particleground({
+    dotColor: '#000000',
+    lineColor: '#000000'
+  });
 
   // Init ScrollMagic
   var controller = new ScrollMagic.Controller();
@@ -50,7 +63,20 @@ $(function() {
     slidesToScroll: 1,
     dots: true,
     centerMode: true,
-    centerPadding: '60px'
+    centerPadding: '60px',
+    variableWidth: false,
+    responsive: [
+      {
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+      // You can unslick at a given breakpoint now by adding:
+      // settings: "unslick"
+      // instead of a settings object
+    ]    
   });
 
   setInterval(ChangeBackground, options.interval);
