@@ -1,0 +1,7 @@
+scrivere i progetti + foto
+fare slider con i progetti
+dare stile allo slider, nel mobile levare il centrale più grande
+effetti sulle scritte con scrollMagic
+rendere tutto responsive <- SOLO ALLA FINE!!
+cambiare funzione resize() in background.js <- non funziona il width nel telefono
+fare un refactoring di background.js

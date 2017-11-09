@@ -1,7 +1,8 @@
 /** Colors **/
 var options = {
-  nColors: 4,
-  colors: ["#3f51b5", "#388E3C", "#bf360c", "#9c27b0"],
+  nColors: 3,
+  //colors: ["#3f51b5", "#388E3C", "#bf360c", "#9c27b0"],
+  colors: ["#31102f", "#004d40", "#1a237e"],
   interval: 8000,
   index: 1
 };
@@ -12,7 +13,10 @@ $(function() {
     $("li:eq(3)").text("Esperienze nello sviluppo software");
     $("#links").addClass("text-center");
   }
+  if (canvas) init();
+  //particlejs effect
   //particlesJS.load('particles-js', 'assets/particles.json');
+  //bubble effect
   /*$('#cover').circleMagic({
     radius: 35,
     density: .3,
@@ -20,10 +24,11 @@ $(function() {
     //color: 'random',
     clearOffset: .3
   });*/
-  $('#particles-js').particleground({
+  //particle background
+  /*$('#particles-js').particleground({
     dotColor: '#000000',
     lineColor: '#000000'
-  });
+  });*/
 
   // Init ScrollMagic
   var controller = new ScrollMagic.Controller();
