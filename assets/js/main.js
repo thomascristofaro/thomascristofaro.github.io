@@ -60,7 +60,7 @@ $(function() {
   });
 
   //waves
-  var waves = wavesfunc();
+  //var waves = wavesfunc();
 
   $('.slider').slick({
     infinite: true,
