@@ -12,8 +12,10 @@ $(function() {
   if($(window).width() <= 575) {
     $("li:eq(3)").text("Esperienze nello sviluppo software");
     $("#links").addClass("text-center");
+  } else {
+    if(canvas) init();
   }
-  if (canvas) init();
+  
   //particlejs effect
   //particlesJS.load('particles-js', 'assets/particles.json');
   //bubble effect
@@ -67,15 +69,16 @@ $(function() {
     slidesToShow: 3,
     slidesToScroll: 1,
     dots: true,
-    centerMode: true,
-    centerPadding: '60px',
+    //centerMode: true,
+    //centerPadding: '60px',
     variableWidth: false,
     responsive: [
       {
         breakpoint: 575,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          arrows : false
         }
       }
       // You can unslick at a given breakpoint now by adding:
@@ -151,7 +154,7 @@ function ChangeBackground() {
   if(index == (options.nColors-1)) options.index = 0;
   else options.index += 1;
   $("#cover").css("background-color", options.colors[index]);
-  $(".cbtn").hover(function() {
+  $("#cover .cbtn").hover(function() {
     $(this).css("color", options.colors[index]);
   }, function() {
     $(this).css("color", "#fff");
@@ -160,4 +163,9 @@ function ChangeBackground() {
   if(index2 == 0) index2 = options.nColors-1;
   else index2 -= 1;
   $("#projects").css("background-color", options.colors[index2]);
+  $("#projects .cbtn").hover(function() {
+    $(this).css("color", options.colors[index2]);
+  }, function() {
+    $(this).css("color", "#fff");
+  });
 }

@@ -5,3 +5,18 @@ effetti sulle scritte con scrollMagic
 rendere tutto responsive <- SOLO ALLA FINE!!
 cambiare funzione resize() in background.js <- non funziona il width nel telefono
 fare un refactoring di background.js
+
+Per questione di tempo non ho caricato il codice di tutto e non ho fatto
+    il refactoring dei codici creati tempo fa'
+progetti:
+robot quinto anno: arduino foto
+controllore robot: android screen
+gestione magazzino: c# screen
+questo sito: css, js, html screen
+calcolatrice scientifica in python: python raspberry foto
+downloader polito: nodejs app, js screen
+pannello hackaton: php screen
+
+RESPONSIVE:
+-> telefono: mettere l'effetto bubble alla cover e toglierlo da projects
+-> tablet: particleCount = 15 - flareCount = 5?, dimensione di quando si gira? deve essere come telefono

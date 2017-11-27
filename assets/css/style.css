@@ -21,7 +21,7 @@ section {
 
 .container-fluid {
     position: absolute;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .curriculum, .curriculum:visited {
@@ -33,8 +33,13 @@ section {
   text-decoration: underline;
 }
 
-h1 {
+#cover h1 {
   font-size: 5rem; 
+  margin-bottom: 1.1rem;
+}
+
+#projects h1 {
+  font-size: 4rem;
   margin-bottom: 1.1rem;
 }
 
@@ -53,8 +58,15 @@ ul {
 
 .cbtn:hover {
   border-color: #fff;
-  color: #31102f;
   background-color: #fff;
+}
+
+#cover .cbtn:hover {
+  color: #31102f;
+}
+
+#projects .cbtn:hover {
+  color: #1a237e;
 }
 
 .cbtn:focus {
@@ -73,8 +85,8 @@ ul {
     margin-top: 1.2rem;
   }
 
-  h1 {
-    font-size: 3.5rem; 
+  #cover h1, #projects h1 {
+    font-size: 3rem; 
     margin-bottom: 1rem;
   }
 
@@ -104,25 +116,13 @@ ul {
 
 /** SLIDER **/
 .block {
-  background: #fff;
-    color: #3498db;
-    font-size: 36px;
-    line-height: 50vh;
-    margin: 10px;
-    padding: 2%;
-    position: relative;
-    text-align: center;
+  /*border-style: solid;
+  border-width: 1px;*/
+  padding-top: 0.1%;
+  padding-right: 0.1%;
+  padding-left: 0.1%;
+  margin: 5px;
 }
-
-.slider .slick-center h3 {
-    -moz-transform: scale(1.08);
-    -ms-transform: scale(1.08);
-    -o-transform: scale(1.08);
-    -webkit-transform: scale(1.08);
-    color: #e67e22;
-    opacity: 1;
-    transform: scale(1.08);
-  }
 
   /* Icon Hang */
   @-webkit-keyframes hvr-icon-hang {

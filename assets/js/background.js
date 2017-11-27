@@ -5,7 +5,7 @@
 */
 
 // Settings
-var particleCount = 50,//40,
+var particleCount = 30,//40,
 flareCount = 10,
 motion = 0.05,
 tilt = 0.05,
@@ -57,14 +57,14 @@ flares = [];
 
 function init() {
     var i, j, k;
-    
+    var lastTime = 0;
     // requestAnimFrame polyfill
     window.requestAnimFrame = (function(){
         return  window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
         function( callback ){
-            window.setTimeout(callback, 1000 / 60);
+            window.setTimeout(callback, 16);
         };
     })();
     
@@ -99,6 +99,7 @@ function init() {
     // Delaunay triangulation
     //var Delaunay = require('delaunay-fast');
     vertices = Delaunay.triangulate(points);
+
     //console.log(JSON.stringify(vertices));
     // Create an array of "triangles" (groups of 3 indices)
     var tri = [];
@@ -149,7 +150,7 @@ function init() {
     }
     else {
         // Mouse move listener
-        console.log('Using mouse movement');
+        //console.log('Using mouse movement');
         document.body.addEventListener('mousemove', function(e) {
             //console.log('moved');
             mouse.x = e.clientX;
@@ -164,11 +165,17 @@ function init() {
     }
     
     // Animation loop
-    (function animloop(){
+    /*(function animloop(){
         requestAnimFrame(animloop);
         resize();
         render();
-    })();
+    })();*/
+    animloop();
+}
+
+function animloop(){
+    render();
+    requestAnimFrame(animloop);
 }
 
 function render() {
