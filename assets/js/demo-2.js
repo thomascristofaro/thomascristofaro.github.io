@@ -1,6 +1,6 @@
 (function() {
 
-    var width, height, largeHeader, canvas, ctx, circles, target, animateHeader = true;
+    var DOM, width, height, largeHeader, canvas, ctx, circles, target, animateHeader = true;
 
     // Main
     initHeader();
@@ -13,8 +13,13 @@
 
         //largeHeader = document.getElementById('large-header');
         //largeHeader.style.height = height+'px';
+        if($(window).width() <= 991) {
+            DOM = 'particles-js';
+        } else {
+            DOM = 'demo-canvas';
+        }
 
-        canvas = document.getElementById('demo-canvas');
+        canvas = document.getElementById(DOM);
         canvas.width = width;
         canvas.height = height;
         ctx = canvas.getContext('2d');

@@ -9,7 +9,7 @@ var options = {
 
 $(function() {
 
-  if($(window).width() <= 575) {
+  if($(window).width() <= 991) {
     $("li:eq(3)").text("Esperienze nello sviluppo software");
     $("#links").addClass("text-center");
   } else {
@@ -79,6 +79,14 @@ $(function() {
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows : false
+        }
+      },
+      {
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows : true
         }
       }
       // You can unslick at a given breakpoint now by adding:
