@@ -1,0 +1,80 @@
+{
+  "fields": [
+    {
+      "id": "col1",
+      "type": "string",
+      "label": "Column 1",
+      "comment": "you can add size"
+    },
+    {
+      "id": "col2",
+      "type": "number",
+      "label": "Column 2"
+    },
+    {
+      "id": "col3",
+      "type": "number",
+      "label": "Column 3"
+    },
+    {
+      "id": "col4",
+      "type": "number",
+      "label": "Column 4"
+    },
+    {
+      "id": "col5",
+      "type": "number",
+      "label": "Column 5"
+    },
+    {
+      "id": "col6",
+      "type": "number",
+      "label": "Column 6"
+    },
+    {
+      "id": "col7",
+      "type": "number",
+      "label": "Column 7"
+    },
+    {
+      "id": "col8",
+      "type": "number",
+      "label": "Column 8"
+    },
+    {
+      "id": "col9",
+      "type": "number",
+      "label": "Column 9"
+    },
+    {
+      "id": "col10",
+      "type": "number",
+      "label": "Column 10"
+    },
+    {
+      "id": "col11",
+      "type": "number",
+      "label": "Column 11"
+    },
+    {
+      "id": "col12",
+      "type": "number",
+      "label": "Column 12"
+    },
+    {
+      "id": "col13",
+      "type": "number",
+      "label": "Column 13"
+    },
+    {
+      "id": "col14",
+      "type": "number",
+      "label": "Column 14"
+    },
+    {
+      "id": "col15",
+      "type": "number",
+      "label": "Column 15"
+    }
+  ]
+}
