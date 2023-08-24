@@ -1,0 +1,32 @@
+{
+    "recordset": [
+        {
+            "id": "10",
+            "name": "Amazon",
+            "vat": "IT0912345654",
+            "address": "Via test 32",
+            "amount": "32"
+        },
+        {
+            "id": "20",
+            "name": "Microsoft",
+            "vat": "US0912343435",
+            "address": "Via redmond 65",
+            "amount": "32"
+        },
+        {
+            "id": "30",
+            "name": "Google",
+            "vat": "FB0912343435",
+            "address": "Via CUPERTINO 99",
+            "amount": "3200"
+        },
+        {
+            "id": "40",
+            "name": "IBM",
+            "vat": "FR0912343435",
+            "address": "Via TEST 17",
+            "amount": "4200"
+        }
+    ]
+}

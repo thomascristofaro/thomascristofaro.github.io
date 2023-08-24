@@ -1,0 +1,28 @@
+{
+    "recordset": [
+        {
+            "page_id": "Home",
+            "caption": "Home Page",
+            "tooltip": "Home Page tooltip",
+            "icon": 61703,
+            "selected_icon": 58136,
+            "show": true
+        },
+        {
+            "page_id": "CustomerList",
+            "caption": "Clienti",
+            "tooltip": "Clienti tooltip",
+            "icon": 62493,
+            "selected_icon": 58938,
+            "show": true
+        },
+        {
+            "page_id": "VendorList",
+            "caption": "Fornitori",
+            "tooltip": "Fornitori tooltip",
+            "icon": 62493,
+            "selected_icon": 58938,
+            "show": true
+        }
+    ]
+}
