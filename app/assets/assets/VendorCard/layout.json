@@ -1,8 +1,10 @@
 {
-    "id": "VendorCard",
+    "id": "vendorcard",
     "type": 1,
     "caption": "Vendor Card",
-    "key": ["id"],
+    "key": [
+        "id"
+    ],
     "buttons": [
         {
             "id": "btn1",

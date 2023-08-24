@@ -1,5 +1,5 @@
 {
-    "id": "CustomerCard",
+    "id": "customercard",
     "type": 1,
     "caption": "Customer Card",
     "key": [
@@ -63,7 +63,7 @@
             "caption": "Subpage 1",
             "fields": [],
             "options": {
-                "page_id": "SalesLineList",
+                "page_id": "saleslinelist",
                 "height": 400
             }
         },

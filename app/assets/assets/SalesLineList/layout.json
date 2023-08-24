@@ -1,8 +1,8 @@
 {
-    "id": "SalesLineList",
+    "id": "saleslinelist",
     "type": 3,
     "caption": "Sales Lines",
-    "card_page_id": "SalesLineCard",
+    "card_page_id": "saleslinecard",
     "key": [
         "id"
     ],

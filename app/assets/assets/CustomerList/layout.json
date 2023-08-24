@@ -1,9 +1,11 @@
 {
-    "id": "CustomerList",
+    "id": "customerlist",
     "type": 0,
     "caption": "Customer List",
-    "card_page_id": "CustomerCard",
-    "key": ["id"],
+    "card_page_id": "customercard",
+    "key": [
+        "id"
+    ],
     "buttons": [
         {
             "id": "btn1",

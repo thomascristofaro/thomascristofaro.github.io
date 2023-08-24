@@ -1,9 +1,11 @@
 {
-    "id": "VendorList",
+    "id": "vendorlist",
     "type": 0,
     "caption": "Vendor List",
-    "card_page_id": "VendorCard",
-    "key": ["id"],
+    "card_page_id": "vendorcard",
+    "key": [
+        "id"
+    ],
     "buttons": [
         {
             "id": "btn1",
