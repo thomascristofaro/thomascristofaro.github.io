@@ -1,0 +1,39 @@
+{
+    "id": "saleslinecard",
+    "type": 1,
+    "caption": "Sales Line Card",
+    "card_page_id": "",
+    "key": [
+        "id"
+    ],
+    "buttons": [],
+    "area": [
+        {
+            "id": "grp1",
+            "type": 1,
+            "caption": "General",
+            "fields": [
+                {
+                    "id": "id",
+                    "type": 0,
+                    "caption": "ID"
+                },
+                {
+                    "id": "name",
+                    "type": 0,
+                    "caption": "Name"
+                },
+                {
+                    "id": "quantity",
+                    "type": 0,
+                    "caption": "Quantity"
+                },
+                {
+                    "id": "amount",
+                    "type": 0,
+                    "caption": "Amount"
+                }
+            ]
+        }
+    ]
+}

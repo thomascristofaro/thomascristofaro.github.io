@@ -1,0 +1,39 @@
+{
+    "id": "saleslinelist",
+    "type": 3,
+    "caption": "Sales Lines",
+    "card_page_id": "saleslinecard",
+    "key": [
+        "id"
+    ],
+    "buttons": [],
+    "area": [
+        {
+            "id": "repeater1",
+            "type": 0,
+            "caption": "Sales Lines",
+            "fields": [
+                {
+                    "id": "id",
+                    "type": 0,
+                    "caption": "ID"
+                },
+                {
+                    "id": "name",
+                    "type": 0,
+                    "caption": "Name"
+                },
+                {
+                    "id": "quantity",
+                    "type": 0,
+                    "caption": "Quantity"
+                },
+                {
+                    "id": "amount",
+                    "type": 0,
+                    "caption": "Amount"
+                }
+            ]
+        }
+    ]
+}
