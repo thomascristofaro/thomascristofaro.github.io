@@ -31,13 +31,12 @@ jobs:
 
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: ls; cd ./public; ls
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./build
           force_orphan: true
           user_name: 'github-ci[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
