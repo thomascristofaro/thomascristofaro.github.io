@@ -1,7 +1,11 @@
 
-# Sviluppo Business Central Base
+# Sviluppo Business Central
 ## ITS-ICT Piemonte - Prof. Thomas Cristofaro
 
-Materiale per il corso "Sviluppo Business Central Base" dell'istituto ITS-ICT Piemonte:
+Materiale per il corso "Sviluppo Business Central" dell'istituto ITS-ICT Piemonte:
 
-In fase di definizione
+:::caution Attenzione
+
+**In fase di creazione**.
+
+:::
