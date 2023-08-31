@@ -4,7 +4,7 @@
 
 Materiale per il corso "Sviluppo Business Central Avanzato" dell'istituto ITS-ICT Piemonte
 
-[lessons](lessons.html ':include width=100% height=350')
+<iframe src="/business-central-avanzato-lezioni.html" width="100%" height="310"></iframe>
 
 ## Link interessanti
 - [Blog di Dynamics 365 | Modernizzare l'azienda con il cloud e l'intelligenza artificiale](https://cloudblogs.microsoft.com/dynamics365/)
