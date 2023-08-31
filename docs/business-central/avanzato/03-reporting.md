@@ -1,4 +1,8 @@
-# Statistiche
+
+# Reporting
+
+## Link utili
+- [Creazione di report per Microsoft Dynamics 365 Business Central](https://learn.microsoft.com/it-it/training/paths/build-reports/)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur augue vel tempus sollicitudin. Vestibulum rhoncus vitae dui at finibus. Etiam posuere velit at nisi lobortis facilisis. Phasellus malesuada, purus at dapibus sollicitudin, urna felis hendrerit urna, non luctus lectus tortor vitae nibh. Nulla quis velit sit amet tellus luctus egestas. Nam mollis laoreet tellus eget rhoncus.
 

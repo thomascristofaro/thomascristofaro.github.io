@@ -1,9 +1,5 @@
-# Registrazioni & Posting
 
-## Link utili
-- [Uso degli standard di sviluppo essenziali per Microsoft Dynamics 365 Business Central](https://learn.microsoft.com/it-it/training/paths/essential-development-standards/)
-- 2009 Application Design: per reporting e tabelle master e altro
-- Programming BC: BC Process Flow p.400 + BC development projects p.475
+# Statistiche
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam efficitur augue vel tempus sollicitudin. Vestibulum rhoncus vitae dui at finibus. Etiam posuere velit at nisi lobortis facilisis. Phasellus malesuada, purus at dapibus sollicitudin, urna felis hendrerit urna, non luctus lectus tortor vitae nibh. Nulla quis velit sit amet tellus luctus egestas. Nam mollis laoreet tellus eget rhoncus.
 

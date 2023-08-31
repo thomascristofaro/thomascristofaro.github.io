@@ -1,3 +1,4 @@
+
 # Sviluppo Business Central Avanzato
 ## ITS-ICT Piemonte - Prof. Thomas Cristofaro
 

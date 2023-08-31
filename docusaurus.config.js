@@ -78,9 +78,9 @@ const config = {
                     },
                     {
                         type: 'docSidebar',
-                        sidebarId: 'advancedBcSidebar',
+                        sidebarId: 'businessCentralSidebar',
                         position: 'left',
-                        label: 'Advanced BC',
+                        label: 'Business Central',
                     },
                     { to: '/blog', label: 'Blog', position: 'left' },
                     {
