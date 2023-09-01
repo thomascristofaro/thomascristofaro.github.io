@@ -77,26 +77,72 @@ Dopo aver pianificato, sviluppato e distribuito l'applicazione, le attività non
 Dopo che il cliente è live, il Solution Architect deve eseguire una revisione post go-live, discutere il piano di transizione e condividerlo con il team di manutenzione.
 
 ## Success by Design
-Riassunto di https://learn.microsoft.com/it-it/training/modules/success-by-design/
+
+Success by Design è la guida prescrittiva (approcci e procedure consigliate) per la progettazione, la creazione e l'implementazione di una soluzione Dynamics 365. "Success by Design" si basa sull'esperienza Microsoft acquisita nel corso degli anni con la supervisione tecnica di migliaia di distribuzioni e partner. Stabilisce una serie di punti di controllo al fine di agevolare il progresso dei progetti verso il successo. Questa guida è stata progettata per favorire discussioni aperte tra i team di progetto, consentendo loro di valutare i progressi del progetto rispetto alle numerose migliori pratiche identificate. La guida non mira a valutare individualmente i partner o i clienti, ma è concepita per unirli in un team con l'obiettivo di guidare il proprio progetto verso un processo di integrazione di successo per gli utenti.
+
+Success by Design è un approccio che consente agli architetti delle soluzioni di lavorare con i team di progetto attraverso workshop strategici che seguono le fasi chiave del progetto. Questi workshop hanno obiettivi chiari e misurabili e consentono di valutare l'aderenza alle migliori pratiche, identificando potenziali problemi. Inoltre, questa metodologia promuove il coinvolgimento proattivo dei clienti e riduce le situazioni di escalation reattiva, garantendo che la soluzione soddisfi le esigenze attuali e future.
+
+Success by Design rappresenta un ponte tra l'esperienza di migliaia di implementazioni cloud dei clienti e i vostri progetti, migliorando l'adozione del sistema, fornendo indicazioni tempestive e garantendo che la soluzione sia scalabile e allineata agli obiettivi aziendali. In breve, si propone di rendere il passaggio al cloud più efficiente e di successo.
+
+### Fasi di Success by Design
+
+Success by Design è stato creato in modo che un Solution Architect possa interagire con i clienti indipendentemente dalla loro metodologia di consegna. Nei progetti agili, le fasi e i workshop verranno probabilmente ripetuti in qualche misura durante la durata del progetto. Questa guida mapperà il ciclo di vita dell'implementazione di Dynamics 365 in quattro fasi:
+
+![Success by Design Phases](/img/bc-design-phases.png)
+
+### Workshop
+
+Success by Design comprende diversi workshop di progetto. Questi workshop sono una combinazione di riunioni interattive, discussioni tecniche, comunicazioni e attività di completamento. Gli argomenti del workshop sono:
+
+* Solution blueprint: La revisione iniziale del progetto, il team può rivedere il piano generale della soluzione e offrire suggerimenti e correzioni di rotta fin dalle prime fasi.
+* Test strategy: Una strategia di test efficace offrirà una visione olistica delle soluzioni proposte. I test verranno effettuati in diverse fasi dello sviluppo, ma la strategia deve essere definita in anticipo.
+* Data model: Il modello dei dati di solito riflette l'ambito funzionale del progetto e rivela la sua potenziale complessità
+* BI and analytics design: garantisce che nella progettazione della soluzione di BI vengano usate le strategie e le tecnologie appropriate
+* Gap solution design
+* Data migration: Il workshop fornisce le procedure consigliate per evitare problemi di prestazioni nella migrazione dei dati e sviluppare consapevolezza su un throughput realistico.
+* Security: per aiutare a comprendere le esigenze particolari dei requisiti di sicurezza dell'organizzazione e rivedere la granularità del controllo di accesso, la semplicità amministrativa e l'impatto sulla scalabilità.
+* Integration design: fornisce gli elementi utili nella progettazione delle integrazione con i prodotti Microsoft o esterni
+Solution performance: fornisce una conoscenza più approfondita sull'impatto di alcuni tipi di configurazione e/o personalizzazione sulle prestazioni complessive e sull'esperienza dell'utente.
+* Cutover strategy: Un piano di migrazione è una strategia dettagliata che fornisce un piano per effettuare una transizione ben definita, ben testata, affidabile e sicura dai sistemi attuali ai nuovi sistemi di produzione.
+* Post go-live strategy: Rivedere gli obiettivi del progetto e le lezioni apprese, fornire informazioni sulle fasi successive di implementazione, rivedere i piani di supporto, rivedere il programma di advocacy del cliente
+
+I workshop non sono in un ordine prestabilito; è possibile tornare a un argomento più di una volta durante un determinato progetto. Ad esempio, le integrazioni dovrebbero essere progettate, costruite, testate e supportate. Si possono trovare sovrapposizioni negli argomenti e, anche se non esiste una sovrapposizione specifica, una consapevolezza generale degli altri aspetti è una parte essenziale del successo. 
+
+### Motivi per usare Success by Design
+
+Success by Design è stato realizzato per conseguire cinque obiettivi chiave nei progetti Dynamics 365, come illustrato nel seguente diagramma:
+
+![Success by Design Reasons](/img/bc-design-reasons.png)
+
+* **Allineamento strategico della direzione del prodotto**: I Solution Architect giocano un ruolo cruciale nell'assicurare che i team dei clienti e dei partner seguano la direzione evolutiva di Dynamics 365 e Microsoft Power Platform, garantendo l'efficienza e l'allineamento con la strategia dei prodotti Microsoft attraverso i workshop.
+* **Innovation evangelism**: Success by Design offre l'opportunità di influenzare il progetto attraverso raccomandazioni mirate per ottenere un vantaggio competitivo adottando le ultime innovazioni, come funzionalità multitenant e l'uso di IA.
+* **Best practices and knowledge sharing**: nel tempo, le singole raccomandazioni di Success by Design sono state consolidate in best practices, sotto forma di risorse condivisibili con coloro che seguono questa guida.
+* **Execution excellence**: Success by Design fornisce la struttura necessaria per promuovere una maggiore uniformità nell'approccio all'interazione con i clienti e nella misurazione e comunicazione del successo.
+* **Escalation management**: Success by Design dovrebbe contribuire a ridurre al minimo le situazioni di escalation legate all'implementazione attraverso workshop proattivi e checkpoint di revisione.
 
 
 ## Requisiti
 
-- [Valutazione dei requisiti per i progetti Dynamics 365](https://learn.microsoft.com/it-it/training/modules/evaluate-requirements-dynamics-365-projects/) - requisiti
-- [Mapping dei processi aziendali per Dynamics 365](https://learn.microsoft.com/it-it/training/modules/business-process-mapping-dynamics-365/) - processi aziendali
-- [Come lavorare con i requisiti per Microsoft Power Platform e Dynamics 365](https://learn.microsoft.com/it-it/training/modules/work-with-requirements/)    
+La qualità dei requisiti è essenziale per un progetto. I vantaggi principali offerti da buoni requisiti includono:
 
+* Chiara descrizione delle azioni da eseguire per consentire a un consulente di implementare la soluzione.
+* Identificazione delle eccezioni e relativa modalità di gestione per garantire che gli scenari primari e secondari vengano affrontati.
+* Criteri di accettazione per aiutare a chiarire quando il requisito è soddisfatto.
+* Requisiti ben definiti, che aiutano a ridurre gli scostamenti rispetto all'ambito del progetto.
 
+A progetti diversi sono associati livelli di formalità differenti nella gestione dei requisiti: i progetti di dimensioni minori possono usare specifiche informali, mentre per un progetto più ampio si hanno requisiti più formali, ben definiti e documentati, rivisti e con priorità di rilascio.
+
+I team di progetto utilizzano diverse tecniche per gestire i requisiti, sfruttando strumenti come le issue di GitHub per favorire la collaborazione. Solitamente, i requisiti vengono organizzati in un backlog, una lista di idee in attesa di implementazione, prima di essere prioritizzati e messi in atto durante uno sprint o un'iterazione del progetto. Questi rappresentano un periodo di tempo o un insieme di attività definito che il team di progetto raggruppa per implementarle nella soluzione.
+
+Nel corso della pianificazione dello sprint, le squadre possono stimare lo sforzo richiesto per gli elementi del backlog utilizzando diversi approcci, come l'assegnazione di ore o la definizione di dimensioni relative (piccolo, medio, grande). I requisiti dovrebbero essere realizzabili e non troppo ampi per essere completati in un singolo sprint. Requisiti di dimensioni maggiori, denominati "epic", possono essere suddivisi in parti più piccole.
+
+I requisiti sono comunemente suddivisi in categorie funzionali (che descrivono i comportamenti del sistema) e non funzionali (che coprono aspetti come le prestazioni). Una descrizione completa di una nuova soluzione dovrebbe includere entrambi i tipi di requisiti al fine di chiarire le aspettative:
+
+* **Requisiti funzionali**: I requisiti funzionali devono definire il chi, il che cosa e il perché del requisito. La maggior parte dei requisiti funzionali proviene dagli utenti della soluzione finalizzata. Es: Gli utenti dell'amministrazione devono essere in grado di filtrare gli ordini di vendita che sono già stati interamente fatturati.
+
+* **Requisiti non funzionali**: La maggior parte dei requisiti non funzionali proviene dal reparto IT o di conformità a livello aziendale e non dagli utenti finali. Questi tipi di requisiti riguardano di solito argomenti come le prestazioni della soluzione, la capacità, la privacy, la sicurezza e la conformità. Es: Il sistema deve gestire 2500 segnalazioni simultanee di problemi in entrata dei clienti durante le interruzioni
 
 ## Link utili
 - [Concetti fondamentali sui progetti Dynamics 365](https://learn.microsoft.com/it-it/training/paths/learn-fundamentals-dynamics-365-projects/)
-    - [Definizione dell'approccio di implementazione per il progetto Dynamics 365](https://learn.microsoft.com/it-it/training/modules/determine-implementation-approach-dynamics-365/) - Fasi di un progetto
-    - [Come conoscere il team di progetto per le implementazioni di Dynamics 365](https://learn.microsoft.com/it-it/training/modules/project-team-dynamics-365-implementation/) - team di un progetto
 - [Progettazione di soluzioni Dynamics 365](https://learn.microsoft.com/it-it/training/paths/design-dynamics-365-solutions/)
-    - [Valutazione dei requisiti per i progetti Dynamics 365](https://learn.microsoft.com/it-it/training/modules/evaluate-requirements-dynamics-365-projects/) - requisiti
-    - [Mapping dei processi aziendali per Dynamics 365](https://learn.microsoft.com/it-it/training/modules/business-process-mapping-dynamics-365/) - processi aziendali
-    - [Come lavorare con i requisiti per Microsoft Power Platform e Dynamics 365](https://learn.microsoft.com/it-it/training/modules/work-with-requirements/)    
-- [Uso delle soluzioni Success by Design for Dynamics 365](https://learn.microsoft.com/it-it/training/paths/use-success-design/) - credo mi sia utile solo l'introduzione il resto del percorso è troppo specifico
-- Libro [Guida all'implementazione di Dynamics 365 - Success by Design](https://www.d365implementationguide.com/books/asvr/#p=i/?azure-portal=true) - in autonomia
-- 2009 Application Design: per reporting e tabelle master e altro
-- Programming BC: BC Process Flow p.400 + BC development projects p.475
+- [Uso delle soluzioni Success by Design for Dynamics 365](https://learn.microsoft.com/it-it/training/paths/use-success-design/)
