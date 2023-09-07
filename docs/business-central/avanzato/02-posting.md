@@ -99,6 +99,14 @@ I documenti possono iniziare delle transazioni. Quando un documento è processat
 - NAV 2009 capitolo 2 - es. design di un'applicazione - questo molto meglio
 
 ## Esercizio
+Obiettivo: strutturare un flusso di registrazione
+
+Software gestionale di una scuola
+* corsi
+* docenti
+* aule
+* iscrizione ai corsi (testata con docente - righe con allievi)
+* Rilevazione ore allievi e docenti (registrazione)
 
 
 ## Link utili
