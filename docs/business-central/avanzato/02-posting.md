@@ -87,16 +87,48 @@ I documenti possono iniziare delle transazioni. Quando un documento è processat
 ### Esempi di documenti
 
 * **Vendita/Acquisto**: hanno diverse fasi, dipende dal tipo di transazione. Solitamente il punto di inizio è l'offerta. Quando questa viene approvata, può diventare ordine che verrà poi spedito e fatturato.
+
+![Sales Example](/img/bc-posting-sales.png#center)
+
 * **Jobs**: Un progetto potrebbe essere più completo di un semplice documento di acquisto/vendita. Potrebbe durare da settimane a anni e richiedere più documenti. Business Central ti da la possibilità di gestire questa situazione: ogni documento e transazione journal può essere collegata ad un job, semplificando il processo di pianificazione e analisi del profitto.
+
+![Jobs Example](/img/bc-posting-jobs.png#center)
+
 * **Manufacturing**: Consente di gestire il processo di produzione dei prodotti finali. Consente di creare un articolo a partire da altri articoli e risorse.
 
-![Sales Example](/img/bc-posting-sales.png)
-![Jobs Example](/img/bc-posting-jobs.png)
-![Manufacturing Example](/img/bc-posting-manufacturing.png)
+![Manufacturing Example](/img/bc-posting-manufacturing.png#center)
 
-## Design
-- Business Central development projects – general guidance p.1162 - questo parla più del design - non dice granchè
-- NAV 2009 capitolo 2 - es. design di un'applicazione - questo molto meglio
+## Design example
+
+Creiamo una struttura personalizzata in Microsoft Business Central. Per il nostro esempio, gestiremo un campo da squash. Anche se gestire un campo da squash può sembrare semplice da comprendere, è un compito che richiede modifiche ed espansioni al prodotto. Per definire queste modifiche, dobbiamo innanzitutto effettuare una Fit-gap analysis.
+
+### Fit-gap analysis
+
+Quando effettuiamo una Fit-gap analysis, esaminiamo i processi dell'azienda e definiamo cosa possiamo e cosa non possiamo fare con il pacchetto standard. Quando un processo aziendale può essere gestito con il software standard, lo chiamiamo "aderente" (Fit). Quando non è possibile farlo, si tratta di uno "scostamento" (Gap), possiamo colmare un gap sviluppando una soluzione personalizzata o acquistando un componente aggiuntivo.
+
+### Designing a Squash Court application
+Il processo di base di un'azienda che gestisce campi da squash consiste nel noleggio dei campi ai giocatori di squash, sia ai membri che ai non membri. Esiste un processo di prenotazione e fatturazione che gestisce tariffe diverse per i membri e i non membri.
+
+In Business Central, i dati master dei clienti e dei fornitori vengono gestiti utilizzando il "Relationship Management" (RM). Per la nostra soluzione, creeremo una nuova master table per i giocatori di squash e saranno integrati con il RM.
+
+Per progettare la tabella "Squash Court", esamineremo la progettazione degli Item del pacchetto standard. 
+La "Squash Court" sarà il prodotto dell'applicazione, con un journal per creare movimenti di prenotazione, che potremo poi fatturare. Per il processo di fatturazione, utilizzeremo e integreremo la parte delle "vendite" di Business Central.
+
+### Posting schema
+
+Dopo aver deciso quale sarà il design della nostra applicazione, possiamo disegnare le tabelle e definire le procedure di registrazione. Questo ci guiderà attraverso il processo di sviluppo.
+
+![Example Posting Schema](/img/bc-posting-example-design.png#center)
+
+Gli oggetti in Relationship Management e Sales sono oggetti standard che potremmo dover modificare. Gli oggetti per l'applicazione di Squash sono nuovi, ma basati su oggetti simili dello standard.
+
+### The Project approach
+
+Per tenere traccia del nostro progetto, suddivideremo le modifiche in task più piccole: 
+1. Modificare il Relationship Management per poter creare un giocatore di squash da un contatto. 
+2. Creare i campi da squash.
+3. Processo di prenotazione. 
+4. Processo di fatturazione.
 
 ## Esercizio
 Obiettivo: strutturare un flusso di registrazione
@@ -111,5 +143,6 @@ Software gestionale di una scuola
 
 ## Link utili
 - [Uso degli standard di sviluppo essenziali per Microsoft Dynamics 365 Business Central](https://learn.microsoft.com/it-it/training/paths/essential-development-standards/)
+- [Post Documents Journals](https://learn.microsoft.com/en-us/dynamics365/business-central/ui-post-documents-journals)
+- [Programming Microsoft Dynamics 365 Business Central](https://www.amazon.it/Programming-Microsoft-Dynamics-Business-Central-ebook/dp/B07RJBDX3G/)
 - Microsoft Dynamics NAV 2009 Application Design
-- Programming Microsoft Dynamics 365 Business Central

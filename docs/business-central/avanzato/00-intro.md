@@ -6,6 +6,10 @@ Materiale per il corso "Sviluppo Business Central Avanzato" dell'istituto ITS-IC
 
 <iframe src="/business-central-avanzato-lezioni.html" width="100%" height="300"></iframe>
 
+## Link utili
+- [Learn Microsoft Linguaggio AL](https://learn.microsoft.com/it-it/training/paths/application-foundation-al-language/)
+- [Reference Microsoft Linguaggio AL](https://learn.microsoft.com/it-it/dynamics365/business-central/dev-itpro/developer/devenv-programming-in-al)
+
 ## Link interessanti
 - [Blog di Dynamics 365 | Modernizzare l'azienda con il cloud e l'intelligenza artificiale](https://cloudblogs.microsoft.com/dynamics365/)
 - [Che cos'è Power Apps? | Microsoft Power Apps](https://powerapps.microsoft.com/blog/)
