@@ -4,7 +4,7 @@
 
 Materiale per il corso "Sviluppo Business Central Avanzato" dell'istituto ITS-ICT Piemonte
 
-<iframe src="/business-central-avanzato-lezioni.html" width="100%" height="300"></iframe>
+<iframe src="/business-central-avanzato-lezioni.html" width="100%" height="320"></iframe>
 
 ## Link utili
 - [Learn Microsoft Linguaggio AL](https://learn.microsoft.com/it-it/training/paths/application-foundation-al-language/)

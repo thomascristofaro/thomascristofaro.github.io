@@ -1,6 +1,8 @@
 
 # Posting
 
+Il posting è l’attività che registra i dati rendendoli immutabili, come spesso si dice «scolpendoli nella pietra». Il posting determina cambiamenti nei valori economici del sistema gestionale, tipicamente la contabilità (es. nuovi costi o ricavi).
+
 ## Tipi di tabelle
 
 Business Central archivia i dati in tabelle. Da un punto di vista tecnico, tutte le tabelle sono uguali, ma da un punto di vista funzionale, esistono diversi tipi di tabelle per scopi diversi. Il diagramma seguente mostra quali tipologie di tabelle esistono in una tipica area dell'applicativo e che relazioni hanno tra loro:
@@ -9,26 +11,89 @@ Business Central archivia i dati in tabelle. Da un punto di vista tecnico, tutte
 
 
 ### Configuration tables
-Le Configuration tables sono tabelle statiche o che cambiano lentamente in cui gli utenti immettono le informazioni una volta e poi le modificano raramente, se non mai più. L'applicazione usa queste tabelle durante la creazione, la modifica o l'eliminazione di record in altre tabelle, come quelle delle transazioni. Queste tabelle vengono spesso controllate da vari processi, come la registrazione. La modifica delle informazioni in queste tabelle cambia il modo in cui i dati vengono elaborati o altera altri aspetti della funzionalità di un'area di applicazione.
+Le Configuration tables sono tabelle **statiche** o che cambiano lentamente, in cui gli utenti immettono le informazioni una volta e poi le modificano raramente, se non mai più. 
 
-* **Master table**: contiene informazioni sulle entità più importanti di un'area funzionale. Es. i clienti per la contabilità clienti e gli articoli per il magazzino.
-* **Supplemental/Subsidiary table**: servono per arricchire i le tabelle master con dati supplementari. Es. le tabelle Currency e Language.
-* **Setup table**: servono per organizzare i dati delle impostazioni e configurare la soluzione creata. Es. le tabelle G/L Setup e Sales & Receivables Setup.
+L'applicazione usa queste tabelle durante la creazione, la modifica o l'eliminazione di record in altre tabelle, come quelle delle transazioni. Queste tabelle vengono spesso controllate da vari processi, come la registrazione. 
+
+La modifica delle informazioni in queste tabelle cambia il modo in cui i dati vengono elaborati o altera altri aspetti della funzionalità di un'area di applicazione.
+
+#### Setup table
+Le tabelle di setup contengono i parametri di funzionamento (impostazioni) di una specifica area applicativa. Servono per organizzare i dati delle impostazioni e configurare la soluzione creata. Tipicamente sono tabelle composte da una sola riga in cui ciascuna colonna rappresenta una impostazione.
+
+Esempio:
+* Setup Contabilità Clienti
+* Setup Contabilità Generale
+* Setup Manufacturing
+
+![Setup](/img/bc-posting-setup.png)
+
+#### Master table 
+Le tabelle master contengono il dato principale intorno al quale "ruotano" le altre informazioni.
+Contiene informazioni sulle entità più importanti di un'area funzionale.
+Tipicamente sono tabelle di anagrafica, ad esempio:
+* Clienti
+* Fornitori
+* Articoli
+* Commesse
+
+![Master](/img/bc-posting-master.png)
+
+#### Supplemental table
+Le tabelle supplemental contengono dati secondari, aggiuntivi, usati in una o più aree dell’applicazione.
+Sebbene sia importante, tale tabella non è l'interesse principale di alcuna area.
+Anche le tabelle supplemental sono tipicamente anagrafiche, esempio:
+* Paesi
+* Ubicazioni
+* Unità di misura
+
+#### Subsidiary table
+Le tabelle subsidiary contengono informazioni aggiuntive su una tabella master o una tabella supplementare a cui rimangono relazionate. Tipicamente, se viene cancellato un dato nella tabella master, vengono cancellati anche tutti quelli da esso derivati nella tabella subsidiary. Esempio:
+* Unità di misura articoli
+* Item Vendor table
+* Indirizzi di spedizione
 
 
 ### Operational transaction tables
-Le Operational transaction tables sono le tabelle di lavoro principali per gli utenti. Gli utenti immettono regolarmente le informazioni in queste tabelle. L'aggiunta, la modifica o l'eliminazione delle informazioni in queste tabelle in genere non influisce sull'applicazione né sul business.
+Le Operational transaction tables sono le tabelle di lavoro principali per gli utenti. Gli utenti immettono regolarmente le informazioni in queste tabelle. 
 
-* **Journal table**: tutte le transazioni sono registrate tramite registrazioni, quindi è la tabella primaria dei movimenti transazionali. Es. Purchase Journal e Item Journal.
-* **Document table**: quando si immettono transazioni, sono necessari documenti come un'offerta/ordine di vendita. Le tabelle document sono tabelle transazionali secondarie e sono sempre costituite da due tabelle: una con le informazioni dell'intestazione e una con i dettagli della riga. Es. Sales Header e Sales Line che contengono informazioni sugli ordini e offerte di vendita.
+L'aggiunta, la modifica o l'eliminazione delle informazioni in queste tabelle in genere non influisce sull'applicazione né sul business.
 
+#### Journal table
+Le tabelle journal contengono dati che subiranno un processo di posting. Quindi è la tabella primaria dei movimenti transazionali.
+
+Le tabelle di journal vengono svuotate dopo il posting e i dati trasferiti nelle tabelle posted di cui hanno struttura simile. I dati nel journal si considerano quindi temporanei in attesa di registrazione.
+
+![Journal](/img/bc-posting-journal.png)
+
+#### Document table
+Le tabelle document contengono dati provenienti da più tabelle master che saranno sottoposti al processo di posting. Sono sempre formate da testata e righe.
+
+I dati document transitano da uno o più journal automaticamente durante il posting. Sono tabelle transazionali secondarie.
+
+Esempio:
+* Ordini di vendita
+* Distinte di pagamento
+
+![Document](/img/bc-posting-document.png)
 
 ### Posted transaction tables
-Con le Posted transaction tables, le informazioni vengono generate automaticamente dall'applicazione durante la registrazione (o processi simili). Gli utenti non possono creare nuovi record in queste tabelle e non possono modificare né eliminare i record. Esistono alcune eccezioni in cui gli utenti possono modificare o eliminare le informazioni. Tutti questi casi hanno una chiara giustificazione nella logica di business.
+Con le Posted transaction tables, le informazioni vengono generate automaticamente dall'applicazione durante la registrazione. Gli utenti non possono creare nuovi record in queste tabelle e non possono modificare né eliminare i record. Esistono alcune eccezioni in cui gli utenti possono modificare o eliminare le informazioni. Tutti questi casi hanno una chiara giustificazione nella logica di business.
 
-* **Register table**: è un sommario delle tabelle di contabilità generale corrispondenti. Registra tipi di informazioni storiche e transazionali. Es. le tabelle G/L Register e Item Register.
-* **Ledger table**: nelle tabelle di contabilità generale è possibile trovare le informazioni transazionali di un dominio funzionale. Es. tabelle Cust. Ledger Entry e Item Ledger Entry.
-* **Document history table**: queste tabelle sono versioni storiche delle tabelle documenti. Quando si registra dalla Document table, i documenti passano attraverso una Journal table e finiscono in una Document history table. Es. Sales Invoice Header e Sales Invoice Line
+#### Ledger table
+Le tabelle Ledger contengono i dati provenienti dal journal dopo il processo di registrazione.
+Sono tabelle in sola lettura, non modificabili e protette.
+L’eventuale rimozione dei dati da queste tabelle avviene solo mediante storno, un'operazione opposta e contraria a quella che ha creato il dato.
+Tipicamente contengono informazioni di natura monetaria o valori che possono essere sommati e conteggiati.
+
+![Ledger](/img/bc-posting-ledger.png)
+
+#### Register table
+è un sommario delle tabelle di contabilità generale corrispondenti. Registra tipi di informazioni storiche e transazionali, ma non alterano documenti o valori contabili del sistema. Es. le tabelle G/L Register e Item Register.
+
+#### Document history table
+queste tabelle sono versioni storiche delle tabelle documenti. Quando si registra dalla Document table, i documenti passano attraverso una Journal table e finiscono in una Document history table. Esempio: 
+* Spedizione vendita reg.
+* Fattura acquisto reg.
 
 Conoscendo questi principi e patterns, sarà più semplice personalizzare l'applicazione e creare nuove aree mantenendo un'esperienza coerente con lo standard.
 
@@ -39,20 +104,18 @@ I flussi di dati, come ordini di vendita, acquisto, produzione e transazioni fin
 
 ![Process Flow](/img/bc-posting-process_flow.png#center)
 
-* **Setup iniziale**: Qui vengono inseriti i dati principali, i dati di riferimento e i dati di controllo e configurazioni essenziali. La maggior parte di questa fase viene effettuata quando il sistema (o una nuova applicazione) viene preparato per l'uso in produzione.
+* **Setup iniziale**: Qui vengono inseriti i dati principali, i dati di riferimento e i dati di controllo e configurazioni essenziali. Questa fase viene effettuata quando il sistema viene preparato per l'uso in produzione.
 * **Inserimento delle transazioni**: Le transazioni vengono inserite in documenti e successivamente trasferite come parte di una sequenza di registrazione in una Journal table o i dati possono essere inseriti direttamente in una Journal table. I dati vengono preliminarmente convalidati durante l'inserimento, facendo riferimento alle tabelle master e subsidiary. L'inserimento può avvenire mediante inserimento manuale, un processo automatizzato di generazione delle transazioni o una funzione di importazione che porta i dati delle transazioni da un altro sistema.
-* **Validate**: prima di sottoporli a registrazione, i dati delle transazioni vengono convalidati con ulteriori operazioni di verifica di integrità e completezza. Quando una transazione Journal non passa la validazione, può succedere che questa venga bypassata e vengano registrate le transazioni valide oppure l'intero Journal batch viene rifiutato finchè il problema non viene risolto, dipende dall'applicazione.
 * **Posting**: Questo passaggio registra un Journal batch che include: la convalida completa dei dati delle transazioni, aggiunge movimenti a una o più tabelle di Ledger e, in alcuni casi, anche in una Document history table.
 Quando una Journal Entry è registrata all'interno di un Ledger, essa diventa parte del registro contabile permanente. I dati nelle tabelle di Ledger non possono più essere modificati o eliminati.
 Solitamente aggiorna anche una tabella di Register, salvando i range di ID delle ledger registrate e in quale batch.
 Questo contribuisce alla trasparenza del sistema per le verifiche e le analisi.
-* **Utilizzo**: In questa fase accediamo ai dati tramite pagine, query e/o report, compresi quelli che alimentano servizi web e altri consumatori di dati. In questo momento, esiste una flessibilità totale. Dovrebbero essere utilizzati gli strumenti più appropriati per le esigenze degli utenti, che siano interni a Business Central o esterni (come di Business Intelligence).
-* **Manutenzione**: manutenzione continua, nel modo più appropiato, di tutti i dati di Business Central
+* **Utilizzo**: In questa fase accediamo ai dati tramite pagine, query e/o report. In questo momento, esiste una flessibilità totale.
 
 
 ## Posting Schema
 
-Ogni transizione inizia con un journal. Quando registriamo un journal, le modifiche vengono memorizzate in una entry table e viene mantenuta una register per tutte le righe del journal, consentendo agli ispettori di verificare se le transazioni sono coerenti. Questi sono i blocchi di base di Business Central. I più importanti journal, register e entry sono i seguenti:
+Ogni transizione inizia con un journal. Quando registriamo un journal, le modifiche vengono memorizzate in una entry table e viene mantenuta una register per tutte le righe del journal. Questi sono i blocchi di base di Business Central. I più importanti journal, register e entry sono i seguenti:
 
 ![Posting Schema](/img/bc-posting-schema.png#center)
 
@@ -74,17 +137,9 @@ Come vediamo dallo schema, il processo di posting di un journal ha delle codeuni
 * **Jnl.-B.Post**: Registra tutte le journal lines che non hanno errori e segna quelle che hanno errori.
 * **Jnl.-B.Post+Print**: Fa la stessa cosa della codeunit jnl.-b.post ma con in più la stampa di un report definito nel journal template.
 
+![esempio processo](/img/bc-posting-esempio_processo.png)
 
-## Documenti
-
-### Struttura di un documento
-Un documento di Business Central ha sempre una testata e delle righe (header e lines). La testata contiene le informazioni di base sulla transazione come date di spedizione, indirizzi, e termini di pagamento.
-Le righe contengono informazioni su cosa è stato venduto o comprato. Questo può essere a qualcosa come un item, una risorsa o un G/L account.
-
-### Transazioni da documento
-I documenti possono iniziare delle transazioni. Quando un documento è processato, i journal necessari sono automaticamente popolati. Per esempio quando un ordine è spedito il materiale lascia il magazzino, quindi un item journal è creata e registrata per essere gestita. Quando una fattura è registrata, un Generla Journal è generato per creare delle G/L Entries e delle Customer/Vendor ledger entries.
-
-### Esempi di documenti
+### Esempi di processi
 
 * **Vendita/Acquisto**: hanno diverse fasi, dipende dal tipo di transazione. Solitamente il punto di inizio è l'offerta. Quando questa viene approvata, può diventare ordine che verrà poi spedito e fatturato.
 
@@ -98,23 +153,19 @@ I documenti possono iniziare delle transazioni. Quando un documento è processat
 
 ![Manufacturing Example](/img/bc-posting-manufacturing.png#center)
 
-## Design example
+## Designing a Squash Court application
 
-Creiamo una struttura personalizzata in Microsoft Business Central. Per il nostro esempio, gestiremo un campo da squash. Anche se gestire un campo da squash può sembrare semplice da comprendere, è un compito che richiede modifiche ed espansioni al prodotto. Per definire queste modifiche, dobbiamo innanzitutto effettuare una Fit-gap analysis.
+Creiamo una struttura personalizzata in Microsoft Business Central. Gestiremo un campo da squash. Per prima cosa dobbiamo definire le modifiche e le espansioni al prodotto, per farlo dobbiamo effettuare una **Fit-gap analysis**: esaminiamo i processi dell'azienda e definiamo cosa possiamo e cosa non possiamo fare con il pacchetto standard. Quando un processo aziendale può essere gestito con il software standard, lo chiamiamo "aderente" (**Fit**). Quando non è possibile farlo, si tratta di uno "scostamento" (**Gap**), possiamo colmare un gap sviluppando una soluzione personalizzata o acquistando un componente aggiuntivo.
 
-### Fit-gap analysis
-
-Quando effettuiamo una Fit-gap analysis, esaminiamo i processi dell'azienda e definiamo cosa possiamo e cosa non possiamo fare con il pacchetto standard. Quando un processo aziendale può essere gestito con il software standard, lo chiamiamo "aderente" (Fit). Quando non è possibile farlo, si tratta di uno "scostamento" (Gap), possiamo colmare un gap sviluppando una soluzione personalizzata o acquistando un componente aggiuntivo.
-
-### Designing a Squash Court application
+#### Fit-gap analysis
 Il processo di base di un'azienda che gestisce campi da squash consiste nel noleggio dei campi ai giocatori di squash, sia ai membri che ai non membri. Esiste un processo di prenotazione e fatturazione che gestisce tariffe diverse per i membri e i non membri.
 
 In Business Central, i dati master dei clienti e dei fornitori vengono gestiti utilizzando il "Relationship Management" (RM). Per la nostra soluzione, creeremo una nuova master table per i giocatori di squash e saranno integrati con il RM.
 
 Per progettare la tabella "Squash Court", esamineremo la progettazione degli Item del pacchetto standard. 
-La "Squash Court" sarà il prodotto dell'applicazione, con un journal per creare movimenti di prenotazione, che potremo poi fatturare. Per il processo di fatturazione, utilizzeremo e integreremo la parte delle "vendite" di Business Central.
+La "Squash Court" sarà il prodotto dell'applicazione, con un journal per creare movimenti di prenotazione, che potremo poi fatturare. Per il processo di fatturazione, utilizzeremo e integreremo la parte delle vendite di Business Central.
 
-### Posting schema
+#### Posting schema
 
 Dopo aver deciso quale sarà il design della nostra applicazione, possiamo disegnare le tabelle e definire le procedure di registrazione. Questo ci guiderà attraverso il processo di sviluppo.
 
@@ -122,7 +173,7 @@ Dopo aver deciso quale sarà il design della nostra applicazione, possiamo diseg
 
 Gli oggetti in Relationship Management e Sales sono oggetti standard che potremmo dover modificare. Gli oggetti per l'applicazione di Squash sono nuovi, ma basati su oggetti simili dello standard.
 
-### The Project approach
+#### The Project approach
 
 Per tenere traccia del nostro progetto, suddivideremo le modifiche in task più piccole: 
 1. Modificare il Relationship Management per poter creare un giocatore di squash da un contatto. 
