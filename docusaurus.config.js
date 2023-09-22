@@ -78,6 +78,12 @@ const config = {
                     },
                     {
                         type: 'docSidebar',
+                        sidebarId: 'aiSidebar',
+                        position: 'left',
+                        label: 'Artificial Intelligence',
+                    },
+                    {
+                        type: 'docSidebar',
                         sidebarId: 'tesiSidebar',
                         position: 'left',
                         label: 'Tesi',
