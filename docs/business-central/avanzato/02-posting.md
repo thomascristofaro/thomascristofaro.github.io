@@ -194,7 +194,7 @@ Vedremo che avremo bisogno di:
 ![Squash Player](/img/image-7.png)
 
 Aggiungere ora il codice per la gestione del numeratore:
-```AL
+```al
     OnInsert()
         IF "No." = '' THEN BEGIN
             SquashSetup.GET;
@@ -221,7 +221,7 @@ Aggiungere ora il codice per la gestione del numeratore:
 * Aggiungere il campo "Bus. Rel. Code for Squash Player" in "Marketing Setup"
 
 Adesso possiamo fare la funzione per creare il Player CreateSquashPlayer():
-```AL
+```al
 CreateSquashPlayer()
     TESTFIELD(Type, Type::Person);
     RMSetup.GET;
@@ -395,7 +395,7 @@ Vogliamo specificare solo il tempo di inizio e fine. Il campo da squash può ess
 
 I campi time nella journal avranno una relazione con la tabella per prevenire che l'utente inserisca valori non permessi.
 Ora inseriamo del codice che calcoli la quantità venga calcolata:
-```AL
+```al
 From Time - OnValidate()
     CalcQty;
 
@@ -420,7 +420,7 @@ Aggiungiamo i seguenti campi presi dalla Resource table alla nostra Squash Court
 Sono stati aggiunti i campi Unit Code, Unit Price, Gen. Prod. Posting Group, and VAT Prod. Posting Group.
 Adesso nel campo "Squash Court No." della Journal andiamo ad inserire il validate:
 
-```AL
+```al
 Squash Court No. - OnValidate()
     IF SquashCourt.GET("Squash Court No.") THEN BEGIN
         Description := SquashCourt.Description;
@@ -441,7 +441,7 @@ Prima dobbiamo testare i campi nella journal line table, poi leggiamo i dati del
 
 Possiamo vedere chiaramente che i campi nella nostra tabella sono prima controllati e poi c'è la validazione delle date.
 
-```AL
+```al
 RunCheck()
     WITH SquashJnlLine DO BEGIN
         IF EmptyLine THEN
@@ -469,7 +469,7 @@ RunCheck()
 
 Il codice del posting è semplice. I valori sono controllati e poi una Register è creato o aggiornata, infine viene scritta la ledger.
 
-```AL
+```al
 Code()
     WITH SquashJnlLine DO BEGIN
         IF EmptyLine THEN
