@@ -153,9 +153,9 @@ Come vediamo dallo schema, il processo di posting di un journal ha delle codeuni
 
 ![Manufacturing Example](/img/bc-posting-manufacturing.png#center)
 
-## Designing a Squash Court application
+## Designing a Squash Court app
 
-Creiamo una struttura personalizzata in Microsoft Business Central. Gestiremo un campo da squash. Per prima cosa dobbiamo definire le modifiche e le espansioni al prodotto, per farlo dobbiamo effettuare una **Fit-gap analysis**: esaminiamo i processi dell'azienda e definiamo cosa possiamo e cosa non possiamo fare con il pacchetto standard. Quando un processo aziendale può essere gestito con il software standard, lo chiamiamo "aderente" (**Fit**). Quando non è possibile farlo, si tratta di uno "scostamento" (**Gap**), possiamo colmare un gap sviluppando una soluzione personalizzata o acquistando un componente aggiuntivo.
+Creiamo una struttura personalizzata in Microsoft Business Central. Gestiremo un'azienda che noleggia campi da squash. Per prima cosa dobbiamo definire le modifiche e le espansioni al prodotto, per farlo dobbiamo effettuare una **Fit-gap analysis**: esaminiamo i processi dell'azienda e definiamo cosa possiamo e cosa non possiamo fare con il pacchetto standard. Quando un processo aziendale può essere gestito con il software standard, lo chiamiamo "aderente" (**Fit**). Quando non è possibile farlo, si tratta di uno "scostamento" (**Gap**), possiamo colmare un gap sviluppando una soluzione personalizzata o acquistando un componente aggiuntivo.
 
 #### Fit-gap analysis
 Il processo di base di un'azienda che gestisce campi da squash consiste nel noleggio dei campi ai giocatori di squash, sia ai membri che ai non membri. Esiste un processo di prenotazione e fatturazione che gestisce tariffe diverse per i membri e i non membri.
@@ -180,63 +180,69 @@ Per tenere traccia del nostro progetto, suddivideremo le modifiche in task più 
 2. Processo di prenotazione di un campo da squash. 
 3. Processo di fatturazione delle prenotazioni.
 
-#### Modificare il Relationship Management
+### Relationship Management
 
-Dobbiamo avere la possibilità di creare un giocatore di squash da un contatto proprio come un cliente o fornitore.
+Dobbiamo avere la possibilità di creare un giocatore di squash da un contatto proprio come avviene per un cliente o fornitore.
 Cerchiamo di capire come funziona il metodo standard per la creazione e lo adattiamo al nostro caso d'uso.
-Analizzare la funzione nella pagina "Contact Card" -> CreateCustomer
+Bisogna quindi analizzare la funzione che troviamo nella pagina `Contact Card` chiamata `CreateCustomer`
 
-Vedremo che avremo bisogno di:
+Analizzando la funzione, vedremo che avremo bisogno di:
 * **Squash Setup**: Squash Player Nos. e Squash Court Nos.
-![Squash Setup](/img/image-6.png)
+![Squash Setup](/img/bc-posting-image-6.png)
 
 * **Squash Player** master table: prendiamo la esempi dalla tabella Contact perchè c'è il transferfield + nel campo "Series No." aggiungere TableRelation con "Series No."
-![Squash Player](/img/image-7.png)
+![Squash Player](/img/bc-posting-image-7.png)
 
 Aggiungere ora il codice per la gestione del numeratore:
 ```al
-    OnInsert()
+    field(_; "No."; Code[20])
+    {
+        trigger OnValidate();
+        begin
+            IF "No." <> xRec."No." THEN BEGIN
+                SquashSetup.GET;
+                NoSeriesMgt.TestManual(SquashSetup."Squash Player Nos.");
+                "No. Series" := '';
+            END;
+        end;
+    }
+
+    TRIGGER OnInsert()
+    BEGIN
         IF "No." = '' THEN BEGIN
             SquashSetup.GET;
             SquashSetup.TESTFIELD("Squash Player Nos.");
             NoSeriesMgt.InitSeries(SquashSetup."Squash Player Nos.", xRec."No. Series",0D,"No.","No. Series");
         END;
-
-    No. - OnValidate()
-        IF "No." <> xRec."No." THEN BEGIN
-            SquashSetup.GET;
-            NoSeriesMgt.TestManual(SquashSetup."Squash Player Nos.");
-            "No. Series" := '';
-        END;
-
-    AssistEdit() : Boolean
-        SquashSetup.GET;
-        SquashSetup.TESTFIELD("Squash Player Nos.");
-        IF NoSeriesMgt.SelectSeries(SquashSetup."Squash Player Nos.", xRec."No. Series","No. Series") THEN BEGIN
-            NoSeriesMgt.SetSeries("No.");
-            EXIT(TRUE);
-        END;
+    END;
 ```
-* Nella tabella "Contact Business Relation" campo "Link to Table" aggiungere "Squash Player" + la TableRelation nel campo "No."
-* Aggiungere il campo "Bus. Rel. Code for Squash Player" in "Marketing Setup"
+* Nella tabella `Contact Business Relation` campo `Link to Table` aggiungere `Squash Player` + la TableRelation nel campo `No.`
+* Aggiungere il campo `Bus. Rel. Code for Squash Player` in `Marketing Setup`
 
-Adesso possiamo fare la funzione per creare il Player CreateSquashPlayer():
+Adesso possiamo sviluppare la funzione per creare il Player a partire dal contatto:
 ```al
-CreateSquashPlayer()
+// prendendo esempio dalla CreateCustomer
+procedure CreateSquashPlayer()
+begin
     TESTFIELD(Type, Type::Person);
     RMSetup.GET;
     RMSetup.TESTFIELD("Bus. Rel. Code for Squash Pl.");
     CLEAR(SquashPlayer);
     SquashPlayer.INSERT(TRUE);
+
     ContBusRel."Contact No." := Cont."No.";
     ContBusRel."Business Relation Code" := RMSetup."Bus. Rel. Code for Squash Pl.";
     ContBusRel."Link to Table" := ContBusRel."Link to Table"::"Squash Player";
     ContBusRel."No." := SquashPlayer."No.";
     ContBusRel.INSERT(TRUE);
+    
     UpdateCustVendBank.UpdateSquashPlayer(Cont,ContBusRel);
     MESSAGE(Text009,SquashPlayer.TABLECAPTION,SquashPlayer."No.");
+end;
 
-UpdateSquashPlayer()
+// prendendo esempio dalla UpdateCustomer
+procedure UpdateSquashPlayer()
+begin
     WITH SquashPlayer DO BEGIN
         GET(ContBusRel."No.");
         xRecRef.GETTABLE(SquashPlayer);
@@ -248,161 +254,129 @@ UpdateSquashPlayer()
         RecRef.GETTABLE(SquashPlayer);
         ChangeLogMgt.LogModification(RecRef,xRecRef);
     END;
+end;
 ```
 
-#### Processo di prenotazione di un campo da squash
-Per questa parte guarderemo le Resources di business central. Le risorse hanno un processo simile agli item ma sono più semplici da utilizzare e capire.
+### Processo di prenotazione
+Per costruire un flusso di registrazione prenderemo esempio dalla gestione delle `Resource` in Business Central, questo perchè le risorse hanno un processo semplice da capire come per gli item, ma a differenza di questi sono anche più semplici da utilizzare.
 
-**Squash Court**
-questa tabella master è simile alle risorse, quindi possiamo andare a copiare le sue funzionalità. Abbiamo bisogno di un altro numero di serie, quindi ne aggiungiamo un altro alla tabella Squash Setup.
+#### Squash Court
+Questa tabella master è simile alle risorse, quindi possiamo andare a copiare le sue funzionalità. 
+Utilizzeremo però il numero di serie inserito nella Squash Setup.
 
-![Squash Court](/img/image.png)
+![Squash Court](/img/bc-posting-image.png)
 
-Quando utilizziamo un campo da squash vogliamo essere in grado di tenere traccia delle prenotazioni.
+Come obiettivo dell'esercizio vogliamo essere in grado di tenere traccia delle prenotazioni.
 Creeremo quindi uno Squash Journal per creare movimenti di prenotazioni che potranno essere fatturati.
-Un journal ha bisogno di una struttura di diversi oggetti. è più semplice creare un journal da una struttura già esistente. In questo esempio copieremo le **Resource Journals**:
+Un journal ha bisogno di una struttura complessa, per questo la creeremo a partire da una già esistente. Copieremo quindi le `Resource Journals`:
 
-![Resource Journals](/img/image-1.png)
+![Resource Journals](/img/bc-posting-image-1.png)
 
-Tutti i journal hanno la stessa struttura: il Template, batch e la register table sono quasi sempre le stesse, mentre la journal line e la ledger entry contengono campi specifici di funzione. 
+Tutti i journal hanno la stessa struttura: 
+* il Template, Batch e la Register table sono quasi sempre uguali in ogni struttura
+* la Journal Line e la Ledger Entry invece contengono campi specifici di funzione 
 
-**Journal Template**
+#### Journal Template
 
-![Journal Template](/img/image-2.png)
+![Journal Template](/img/bc-posting-image-2.png)
 
-- **Name**: This is the unique name. It is possible to define as many Templates
-as required but usually one Template per Form ID and one for Recurring
-will do. If you want journals with different source codes you need to have
-more templates.
-- **Description**: A readable and understandable description of its purpose.
-- **Test Report ID**: All Templates have a test report that allows the user to
-check for posting errors.
-- **Form ID**: For some journals, more UI objects are required. For example,
-the General Journals have a special form for bank and cash.
-- **Posting Report ID**: This report is printed when a user selects Post and Print.
-- **Force Posting Report**: Use this option when a posting report is mandatory.
-- **Source Code**: Here you can enter a Trail Code for all the postings done via
-this Journal.
-- **Reason Code**: This functionality is similar to source sodes.
-- **Recurring**: Whenever you post lines from a recurring journal, new lines
-are automatically created with a posting date defined in the recurring
-date formula.
-- **No. Series**: When you use this feature the Document No. in the Journal Line
-is automatically populated with a new number from this Number Series.
-- **Posting No. Series**: Use this feature for recurring journals.
+- **Name**: Il nome univoco del template. È possibile definire tanti modelli quanti ne sono necessari, ma di solito un Template per Page ID e uno per Recurring sono sufficienti. Se si desiderano journals con diversi codici di origine, è necessario avere più modelli.
+- **Description**
+- **Page ID**: Per alcune journals, servono più oggetti UI. Per esempio, le General Journals hanno una pagina sia per la banca che per i pagamenti.
+- **Source Code**: un codice di traccia per tutte le registrazioni fatte tramite questo template.
+- **Reason Code**: simile al source code.
+- **Recurring**: Ogni volta che si registrano righe da un registro ricorrente, vengono create automaticamente nuove righe con una data di registrazione definita nella formula di data ricorrente
+- **No. Series**: il document no. nella journal line viene automaticamente popolato con un nuovo numero da questa serie di numeri
 
-**Journal Batch**
+Vedere esempio pagina `Def. registrazioni COGE`
 
-![Journal Batch](/img/image-3.png)
+#### Journal Batch
 
-- **Journal Template Name**: The name of the Journal Template this batch
-refers to
-- **Name** : Each batch should have a unique code
-- **Description**: A readable and explaining description for this batch
-- **Reason Code**: When populated, this Reason Code will overrule the
-Reason Code from the Journal Template
-- **No. Series**: When populated this No. Series will overrule the No. Series
-from the Journal Template
-- **Posting No. Series**: When populated this Posting No. Series will overrule
-the Posting No. Series from the Journal Template
+![Journal Batch](/img/bc-posting-image-3.png)
 
-**Register**
+- **Journal Template Name**: collegamento al Template
+- **Name** : Codice del Batch
+- **Description**
+- **Reason Code**: Se inserito, sovrascrive quello del Template
+- **No. Series**: Se inserito, sovrascrive quello del Template
 
-![Register](/img/image-4.png)
+#### Register
 
-- **No.**: This field is automatically and incrementally populated for each
-transaction with this journal. There are no gaps between the numbers.
-- **From Entry No.**: A reference to the first Ledger Entry created is with
-this transaction.
-- **To Entry No.**: A reference to the last Ledger Entry is created with
-this transaction.
-- **Creation Date**: Always populated with the real date when the
-transaction was posted.
-- **User ID**: The ID of the end user who has posted the transaction.
+![Register](/img/bc-posting-image-4.png)
 
-**Journal Line**
+- **No.**: Campo automaticamente incrementato per ogni transazione del journal.
+- **From Entry No.**: La prima Ledger Entry creata con questa transizione.
+- **To Entry No.**: L'ultima Ledger Entry creata con questa transizione.
+- **Creation Date**: Compilata sempre con la data reale di quando è stata registrata la transizione.
+- **User ID**: L'ID dell'utente che ha registrato la transazione
+
+#### Journal Line
 
 Le journal line hanno un numero di campi obbligatori che sono richiesti per tutti i journals e alcuni campi che sono richiesti per le sue funzionalità di design.
-Il processo di reservetion richiede di conoscere il codice dello Squash Court, la data e l'ora, quanto vogliono giocare e il numero della tabella Squash Player.
+Il processo di reservation richiede di conoscere il codice del campo da Squash, la data e l'ora della prenotazione. Salveremo anche per quanto tempo vogliono giocare e il codice del giocatore.
 Per la fatturazione abbiamo bisogno del prezzo da fatturare e il costo. 
 
-![Journal Line](/img/image-5.png)
+![Journal Line](/img/bc-posting-image-5.png)
 
-- **Journal Template Name**: This is a reference to the current journal template.
-- **Line No.** : Each journal has virtually unlimited number of lines; this number is
-automatically incremented by 10000 allowing lines to be created in between.
-- **Entry Type**: Reservation or invoice.
-- **Document No.**: This number can be used to give to the squash player as a
-reservation number. When the entry type is invoice, it is the invoice number.
-- **Posting Date**: Posting date is usually the reservation date but when the entry
-type is invoice it might be the date of the invoice which might differ from the
-posting date in the general ledger.
-- **Squash Player No.**: A reference to the squash player who has made
-the reservation.
-- **Squash Court No.**: A reference to the squash court.
-- **Description**: This is automatically updated with the number of the squash
-court, reservation date and times, but can be changed by the user.
-- **Reservation Date**: The actual date of the reservation.
-- **From Time**: The starting time of the reservation. We allow only whole or
-half hours.
-- **To Time**: The ending time of the reservation. We only allow whole and half
-hours. This is automatically populated when people enter a quantity.
-- **Quantity**: The number of hours playing time. We only allow units of 0.5 to be
-entered here. This is automatically calculated when the times are populated.
-- **Unit Cost**: The cost to run a Squash Court for one hour.
-- **Total Cost**: The cost for this reservation.
-- **Unit Price**: The invoice price for this reservation per hour. This depends
-on whether or not the squash player is a member or not.
-- **Total Price**: The total invoice price for this reservation.
-- **Applies-to Entry No.**: When a reservation is invoiced, this is the reference
-to the squash entry no. of the reservation.
-- **Source Code**: Inherited from the journal batch or template and used when
-posting the transaction.
-- **Chargeable**: When this option is used, there will not be an invoice for
-the reservation.
-- **Journal Batch Name**: A reference to the journal batch that is used for
-this transaction.
-- **Reason Code**: Inherited from the journal batch or template, and used when
-posting the transaction.
-- **Recurring Method**: When the journal is a recurring journal you can use this
-field to determine whether the amount field is blanked after posting the lines.
-- **Recurring Frequency**: This field determines the new posting date after the
-recurring lines are posted.
-- **Gen. Bus. Posting Group**: The combination of general business and
-product posting group determines the G/L cccount for turnover when
-we invoice the reservation. The Gen. Bus. Posting Group is inherited
-from the bill-to customer.
-- **Gen. Prod. Posting Group**: This will be inherited from the squash player.
-- **External Document No.**: When a squash player wants us to note a reference
-number we can store it here.
-- **Posting No. Series**: When the journal template has a posting no. series it is
-populated here to be used when posting.
-- **Bill-to Customer No.**: This determines who is paying for the reservation.
-We will inherit this from the squash player.
+- **Journal Template Name**: collegamento al Template.
+- **Line No.** : Ogni Journal ha, virtualmente, un numero illimitato di righe. Questo numero è automaticamente incrementato di 10000, per poter creare delle righe in mezzo.
+- **Entry Type**: Reservation o Invoice.
+- **Document No.**: Questo numero può essere dato al giocatore come numero della prenotazione. Quando il tipo del movimento è fattura allora è il numero della fattura.
+- **Posting Date**: è la data della prenotazione, ma quando il movimento è fattura allora può essere la data della fattura.
+- **Squash Player No.**: chi ha fatto la prenorazione.
+- **Squash Court No.**: il campo da utilizzare.
+- **Description**: aggiornamento automaticamente con il numero del campo, la data e l'ora della prenotazione, può essere modificata dall'utente.
+- **Reservation Date**: data della prenotazione.
+- **From Time**: Ora di inizio della prenotazione. Possiamo inserire solo ore intere o mezz'ore.
+- **To Time**: Ora di fine della prenotazione.  Possiamo inserire solo ore intere o mezz'ore. Inserita in automatico quando inseriamo una quantità.
+- **Quantity**: Numero di ore di gioco, possiamo inserire solo unità di 0.5, è calcolata in autoamtico quando i campi time sono inseriti.
+- **Unit Cost**: Il costo di gestione del campo per un'ora di gioco.
+- **Total Cost**: Costo della prenotazione.
+- **Unit Price**: Prezzo della fattura per ora per la prenotazione, questo dipende se il giocatore è un membro del circolo o no.
+- **Total Price**: Prezzo totale della fattura per questa prenotazione.
+- **Applies-to Entry No.**: Quando una prenotazione è fatturata, questo campo contiene il numero Squash Entry No. della prenotazione.
+- **Source Code**: Ereditato dalla tabella batch o template e usato in fase di registrazione.
+- **Chargeable**: Quando questa opzione è usata, non ci sarà una fattura per questa prenotazione.
+- **Journal Batch Name**: Collegamento al Batch.
+- **Reason Code**: Ereditato dalla tabella batch o template e usato in fase di registrazione.
+- **Bill-to Customer No.**: Determina chi paga per la prenotazione. Ereditato dallo Squash Player.
+- **Gen. Bus. Posting Group**: la combinazione di general business e product posting group determina il Conto COGE (contabilità generale) su cui fare il giroconto quando fattureremo la prenotazione. Gen. Bus. Posting Group è ereditato dal bill-to customer.
+- **Gen. Prod. Posting Group**: Ereditato dallo squash court.
+- **External Document No.**: Quando un giocatore vuole che ci annotiamo un numero di riferimento.
+- **Recurring Method**: Quando il registro è un registro ricorrente, è possibile utilizzare questo campo per determinare se il campo dell'importo viene cancellato dopo la registrazione delle righe.
+- **Recurring Frequency**: Questo campo determina la nuova data di registrazione dopo che le righe ricorrenti sono state registrate.
+- **Posting No. Series**: Quando il template ha un posting no. series, lo si utilizza per popolare questo campo quando si registra.
 
 Prima di partire con il processo di registrazione dobbiamo ancora fare in modo che:
 - I campi Time devono essere calcolati per non inserire valori errati
 - Lo Unit Price deve essere calcolato
 - I campi Unit Cost, Posting groups, and Bill-to Customer No. devono essere ereditati
 
-**Time calculation**
+#### Time calculation
 
 Vogliamo specificare solo il tempo di inizio e fine. Il campo da squash può essere usato solo in blocchi da 30 minuti. Il campo quantità dovrebbe essere calcolato sulla base dei tempi inseriti e vice versa. Per farlo creeremo una nuova tabella con i tempi di inizio e fine permessi. Questa tabella avrà solo due campi come in figura:
 
-![Time calculation](/img/image-8.png)
+![Time calculation](/img/bc-posting-image-8.png)
 
-![Time calculation 2](/img/image-9.png)
+![Time calculation 2](/img/bc-posting-image-9.png)
 
 I campi time nella journal avranno una relazione con la tabella per prevenire che l'utente inserisca valori non permessi.
-Ora inseriamo del codice che calcoli la quantità venga calcolata:
+Ora inseriamo del codice che calcoli la quantità:
 ```al
-From Time - OnValidate()
+// campo From Time 
+trigger OnValidate()
+begin
     CalcQty;
+end;
 
-To Time - OnValidate()
+// campo To Time 
+trigger OnValidate()
+begin
     CalcQty;
+end;
 
-CalcQty()
+procedure CalcQty()
+begin
     IF ("From Time" <> 0T) AND ("To Time" <> 0T) THEN BEGIN
         IF "To Time" <= "From Time" THEN
             FIELDERROR("To Time");
@@ -410,39 +384,58 @@ CalcQty()
         ResTime.CALCSUMS(Duration);
         VALIDATE(Quantity, ResTime.Duration);
     END;
+end;
 ```
 
-**Inherited data**
+#### Price Management
+
+Questo scenario potrebbe essere più complesso, ma al momento gestiremo solo due campi sulla tabella Squash Court che ci indica il prezzo per i Member e not Member.
+
+#### Inherited data
+
 Aggiungiamo i seguenti campi presi dalla Resource table alla nostra Squash Court:
 
-![Inherited data](/img/image-10.png)
+![Inherited data](/img/bc-posting-image-10.png)
 
 Sono stati aggiunti i campi Unit Code, Unit Price, Gen. Prod. Posting Group, and VAT Prod. Posting Group.
-Adesso nel campo "Squash Court No." della Journal andiamo ad inserire il validate:
+Adesso nel campo "Squash Court No." della Journal Line andiamo ad inserire il validate:
 
 ```al
-Squash Court No. - OnValidate()
+// campo Squash Court No. 
+trigger OnValidate()
+begin
     IF SquashCourt.GET("Squash Court No.") THEN BEGIN
         Description := SquashCourt.Description;
         "Unit Cost" := SquashCourt."Unit Cost";
         "Gen. Prod. Posting Group" := SquashCourt."Gen. Prod. Posting Group";
-        FindSquashPlayerPrice;
+        FindSquashPlayerPrice; // trovare il prezzo
     END;
+end;
 ```
 
-**The posting process**
+Gestiamo l'ereditarietà del campo Bill-to Customer No. dallo squash player e del campo Gen. Bus. Posting Group.
 
-Ora dobbiamo implementare il posting code, prendendo esempio dalla Resource di BC:
-![The posting process](/img/image-11.png)
+#### The posting process
 
-Prima dobbiamo testare i campi nella journal line table, poi leggiamo i dati delle tabelle esterne per vedere se tutto è ok, infine registriamo le righe e eliminiamo i dati dalla journal table.
+Ora dobbiamo implementare il posting code, prendendo esempio dalle codeunit delle Resource:
 
-**Check line**
+![The posting process](/img/bc-posting-image-11.png)
 
-Possiamo vedere chiaramente che i campi nella nostra tabella sono prima controllati e poi c'è la validazione delle date.
+La filosofia di Microsoft Business Central è semplice: *Test near, Test far, Do-it, Clean up*
+
+Che significa:
+1. Test near: Dobbiamo testare i campi nella journal line table
+2. Test far: Leggiamo i dati delle tabelle esterne per vedere se tutto è ok
+3. Do-it: registriamo le righe 
+4. Clean up: eliminiamo i dati dalla journal table.
+
+#### Check line
+
+Possiamo vedere chiaramente che i campi nella nostra tabella sono prima controllati e poi c'è la validazione delle date (e poi ci sarebbe il controllo delle dimensioni).
 
 ```al
-RunCheck()
+procedure RunCheck()
+begin
     WITH SquashJnlLine DO BEGIN
         IF EmptyLine THEN
             EXIT;
@@ -462,15 +455,18 @@ RunCheck()
             FIELDERROR("Posting Date",Text000);
         IF (AllowPostingFrom = 0D) AND (AllowPostingTo = 0D) THEN
             ...
+        END;
     END;
+end;
 ```
 
-**Post line**
+#### Post line
 
-Il codice del posting è semplice. I valori sono controllati e poi una Register è creato o aggiornata, infine viene scritta la ledger.
+Il codice del posting è semplice. I valori sono controllati e poi un record della Register è creato o aggiornato, infine viene scritta la ledger.
 
 ```al
-Code()
+procedure Code()
+begin
     WITH SquashJnlLine DO BEGIN
         IF EmptyLine THEN
             EXIT;
@@ -504,7 +500,13 @@ Code()
         ...
         SquashLedgEntry."No. Series" := "Posting No. Series";
         SquashLedgEntry.INSERT;
+    END;
+end;
 ```
+
+### Processo di fatturazione
+
+
 
 ## Esercizio
 Obiettivo: strutturare un flusso di registrazione
