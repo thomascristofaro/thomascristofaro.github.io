@@ -9,6 +9,7 @@
 
 
 ## AI Link
+- [Microsoft Learn: Transform your business with AI](https://learn.microsoft.com/en-us/training/paths/transform-your-business-with-microsoft-ai/)
 - [Digital4: AI - come può aiutare le imprese](https://www.digital4.biz/executive/ai-cos-e-l-intelligenza-artificiale-e-come-puo-aiutare-le-imprese/): Podcast che sembra interessante e articolo collegato con molte informazioni
 - [Microsoft Collection GitHub AI for beginners](https://microsoft.github.io/AI-For-Beginners/)
 - [AI LAB Projects](https://www.microsoft.com/en-us/ai/ai-lab): non di tutti ci sono i sorgenti, alcuni sono solo case study

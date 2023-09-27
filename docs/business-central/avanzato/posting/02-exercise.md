@@ -6,6 +6,8 @@ sidebar_label: 'Esercizio'
 
 Creiamo una struttura personalizzata in Microsoft Business Central. Gestiremo un'azienda che noleggia campi da squash. Per prima cosa dobbiamo definire le modifiche e le espansioni al prodotto, per farlo dobbiamo effettuare una **Fit-gap analysis**: esaminiamo i processi dell'azienda e definiamo cosa possiamo e cosa non possiamo fare con il pacchetto standard. Quando un processo aziendale può essere gestito con il software standard, lo chiamiamo "aderente" (**Fit**). Quando non è possibile farlo, si tratta di uno "scostamento" (**Gap**), possiamo colmare un gap sviluppando una soluzione personalizzata o acquistando un componente aggiuntivo.
 
+## Analisi
+
 #### Fit-gap analysis
 Il processo di base di un'azienda che gestisce campi da squash consiste nel noleggio dei campi ai giocatori di squash, sia ai membri che ai non membri. Esiste un processo di prenotazione e fatturazione che gestisce tariffe diverse per i membri e i non membri.
 
@@ -29,7 +31,7 @@ Per tenere traccia del nostro progetto, suddivideremo le modifiche in task più 
 2. Processo di prenotazione di un campo da squash. 
 3. Processo di fatturazione delle prenotazioni.
 
-### Relationship Management
+## Relationship Management
 
 Dobbiamo avere la possibilità di creare un giocatore di squash da un contatto proprio come avviene per un cliente o fornitore.
 Cerchiamo di capire come funziona il metodo standard per la creazione e lo adattiamo al nostro caso d'uso.
@@ -106,8 +108,10 @@ begin
 end;
 ```
 
-### Processo di prenotazione
+## Processo di prenotazione
 Per costruire un flusso di registrazione prenderemo esempio dalla gestione delle `Resource` in Business Central, questo perchè le risorse hanno un processo semplice da capire come per gli item, ma a differenza di questi sono anche più semplici da utilizzare.
+
+### Struttura 
 
 #### Squash Court
 Questa tabella master è simile alle risorse, quindi possiamo andare a copiare le sue funzionalità. 
@@ -264,7 +268,7 @@ end;
 
 Gestiamo l'ereditarietà del campo Bill-to Customer No. dallo squash player e del campo Gen. Bus. Posting Group.
 
-#### The posting process
+### Posting process
 
 Ora dobbiamo implementare il posting code, prendendo esempio dalle codeunit delle Resource:
 
@@ -353,5 +357,207 @@ begin
 end;
 ```
 
-### Processo di fatturazione
+## Processo di fatturazione
 
+L'ultimo step da fare è il processo di fatturazione. Utilizzeremo il reparto standard delle vendite.
+Per la nostra applicazione dobbiamo crearo il documento di fattura e assicurarci che in fase di registrazione la nostra applicazione di squash venga aggiornata.
+
+### Fattura
+
+Dovremmo creare una funzione che combini le prenotazioni evase in fatture.
+La funzione dovrà ciclare tra le Squash ledger entry con entry type reservation e open=yes, ordinate per Open, Entry Type, Bill-To Customer No., Reservation Date e dovrà creare una fattura per ogni Bill-to Customer No. incontrato. 
+Per ogni Squash Ledger Entry creeremo una sales line.
+
+#### Sales Header
+
+The code to create a sales header looks like this:
+
+```al
+procedure CreateSalesHdr()
+begin
+    CLEAR(SalesHdr);
+    SalesHdr.SetHideValidationDialog(TRUE);
+    SalesHdr."Document Type" := SalesHdr."Document Type"::Invoice;
+    SalesHdr."Document Date" := WORKDATE;
+    SalesHdr."Posting Date" := WORKDATE;
+    SalesHdr.VALIDATE("Sell-to Customer No.", SquashLedgerEntry."Bill-to Customer No.");
+    SalesHdr.INSERT(TRUE);
+    NextLineNo := 10000;
+    CounterOK := CounterOK + 1;
+end;
+```
+
+#### Sales Line
+
+Codice per creare una sales line. Da notare che bisogna aggiungere il campo "Applies-to Squash Entry No." alla tabella sales line.
+
+```al
+procedure CreateLn()
+begin
+    WITH SquashLedgerEntry DO BEGIN
+        GenPstSetup.GET("Gen. Bus. Posting Group", "Gen. Prod. Posting Group");
+        GenPstSetup.TESTFIELD("Sales Account");
+        SalesLn.INIT;
+        SalesLn."Document Type" := SalesHdr."Document Type";
+        SalesLn."Document No." := SalesHdr."No.";
+        SalesLn."Line No." := NextLineNo;
+        SalesLn."System-Created Entry" := TRUE;
+        SalesLn.Type := SalesLn.Type::"G/L Account";
+        SalesLn.VALIDATE("No.", GenPstSetup."Sales Account");
+        SalesLn.Description := Description;
+        SalesLn.VALIDATE(Quantity, Quantity);
+        SalesLn.VALIDATE("Unit Price", "Unit Price");
+        SalesLn.VALIDATE("Unit Cost (LCY)", "Unit Cost");
+        SalesLn."Applies-to Squash Entry No." := "Entry No.";
+        SalesLn.INSERT(TRUE);
+    END;
+    NextLineNo := NextLineNo + 10000;
+end;
+```
+
+Quando aggiungi campi alle tabelle documentali di vendita o acquista, assicurati di aggiungere gli stessi campi anche alle tabelle equialenti registrate, con lo stesso numero di campo. In questo modo l'informazione viene copiata anche nei dati di storico tramite la funzione TRANSFERFIELDS.
+
+#### Dialog
+
+Se ci sono molte fatture combinate da creare la funzione potrebbe impiegare molto tempo, potrebbe essere utile mostrare una progress bar all'utente. Business Central ha una struttura standard per farlo.
+Il codice seguente mostra il Bill-to Customer No. che si sta processando e la barra che va da 1 a 100%.
+Lo calcoleremo tramite un counter. Alla fine mostriamo un messaggio con il numero delle fatture create e il numero delle Squash Ledger Entry processate.
+
+```al
+var
+    Progress: Dialog;
+    ProgressMsg: Label 'Creating Invoices for #1######################\Processing... #2######';
+    Text001: Label 'Created %1 invoices, %2 Squash Entry processed';
+begin
+    // ...
+    CounterTotal := SquashLedEntry.Count;
+    if SquashLedEntry.Findset() then begin
+        Progress.Open(ProgressMsg);
+        repeat
+            Counter := Counter + 1;
+            Progress.Update(1,"Bill-to Customer No.");
+            Progress.Update(2,ROUND(Counter / CounterTotal * 10000, 1));
+            // ...
+        until SquashLedEntry.Next() = 0;
+        Progress.Close();
+    end;
+    Message(Text001,CounterOK,CounterTotal);
+end;
+```
+Le costanti label con i valori #N##### consentono di mostrare e aggiornare un testo. Il numero di # danno la dimensione del valore.
+
+
+### Posting process
+
+Ora siamo pronti per fare le modifiche necessarie al processo di posting della fattura di vendita.
+La registrazione di un documento di vendita viene fatto usando una singola codeunit di registrazione e altri oggetti di aiuto:
+- Codeunit 80: La procedura di registrazione che andremo a modificare.
+- Codeunit 81: codeunit chiamata dall'interfaccia utente e ha un dialog se l'utente vuole la spedizione, fattura o entrambe.
+- Codeunit 82: cdu 81 + stampa un report
+
+Modificheremo la codeunit 80. Vediamo come la codeunit è strutturata sulla base della strategia: Test Near, Test Far, Do it and Cleanup.
+
+```al
+internal procedure RunWithCheck(var SalesHeader2: Record "Sales Header")
+begin
+    // ...
+    // Header
+    CheckAndUpdate(SalesHeader);
+
+    ProcessPosting(
+        SalesHeader, SalesHeader2, TempDropShptPostBuffer,
+        TempServiceItem2, TempServiceItemComp2, CustLedgEntry, EverythingInvoiced);
+
+    // ...
+    
+    FinalizePosting(SalesHeader, EverythingInvoiced, TempDropShptPostBuffer); 
+    
+    // ...
+end;
+```
+
+La modifica la faremo collegandoci ad un evento che viene lanciato quando le righe vengono gestite:
+```al
+// ...
+// Squash Journal Line
+IF SalesLine."Applies-to Squash Entry No." <> 0 THEN
+    PostSquashJnlLn();
+
+procedure PostSquashJnlLn()
+begin
+    WITH SalesHeader DO BEGIN
+        OldSquashLedEnt.GET(SalesLine."Applies-to Squash Entry No.");
+        OldSquashLedEnt.TESTFIELD(Open);
+        OldSquashLedEnt.TESTFIELD("Bill-to Customer No.", "Bill-to Customer No.");
+        
+        SquashJnlLn.INIT;
+        SquashJnlLn."Posting Date" := "Posting Date";
+        SquashJnlLn."Reason Code" := "Reason Code";
+        ...
+        SquashJnlLn."Document No." := GenJnlLineDocNo;
+        SquashJnlLn."External Document No." := GenJnlLineExtDocNo;
+        SquashJnlLn.Quantity := -SalesLine."Qty. to Invoice";
+        SquashJnlLn."Source Code" := SrcCode;
+        SquashJnlLn.Chargeable := TRUE;
+        SquashJnlLn."Posting No. Series" := "Posting No. Series";
+        
+        SquashJnlPostLine.RunWithCheck(SquashJnlLn,TempJnlLineDim);
+    END;
+end;
+```
+
+La funzione va a prendere la squash ledger entry collegata, testa se è ancora aperta e se il Bill-to Customer No. non sia cambiato.
+Quindi popoliamo la Squash Journal con le informazioni corrette e facciamo partire la registrazione.
+Da notare che la journal line non viene inserita nel database in questo processo. Questo viene fatto per ragioni di performance e concorrenza. Neanche i Validate sono stati utilizzati, questo rende molto chiaro capire cosa succede. 
+
+Esempio di Squash Entries post registrazione di vendita:
+![Squash Entries Posted](/img/bc-posting-sq-posted.png)
+
+### Trova Movimenti
+Parte aggiuntiva e opzionale dell'esercizio.
+
+La nostra app è quasi completa, ora potremmo avere la necessita di navigare questi movimenti a partire dalla fattura, per farla dobbiamo integrare la funzione "Trova Movimenti" per trovare anche le nostre Squash Ledger Entry.
+Abbiamo bisogno di agganciarci a due eventi della pagina 344.
+
+#### FindRecords
+
+La funzione che ricerca nel database trovando tutte le possibili combinazioni di document no. e posting date. Ci collegheremo ad un evento al suo interno.
+
+```
+// Evento
+procedure OnAfterNavigateFindRecords(var DocumentEntry: Record "Document Entry"; DocNoFilter: Text; PostingDateFilter: Text)
+var
+    Navigate: Page Navigate;
+begin 
+    IF SquashLedgEntry.READPERMISSION THEN BEGIN
+        SquashLedgEntry.RESET;
+        SquashLedgEntry.SETCURRENTKEY("Document No.", "Posting Date");
+        SquashLedgEntry.SETFILTER("Document No.",DocNoFilter);
+        SquashLedgEntry.SETFILTER("Posting Date",PostingDateFilter);
+        Navigate.InsertIntoDocEntry(DocumentEntry, DATABASE::"Squash Ledger Entry", 0, SquashLedgEntry.TABLECAPTION,SquashLedgEntry.COUNT);
+    END;
+end;
+```
+
+La funzione controlla se abbiamo i permessi per leggere la Squash Ledger Entry, se non li abbiamo non verrà mostrata. Il filtraggio viene fatto tramite Document No. e Posting Date. Alla fine viene inserito il risultato di quanti record abbiamo trovato.
+
+#### ShowRecords
+
+La seconda funziona da modificare, viene attivata quando proviamo a navigare i record trovati.
+
+```al
+// Evento
+procedure OnAfterNavigateShowRecords(TableID: Integer; DocNoFilter: Text; PostingDateFilter: Text)
+begin 
+    if TableID = DATABASE::"Squash Ledger Entry" then begin
+        SquashLedgEntry.SETCURRENTKEY("Document No.", "Posting Date");
+        SquashLedgEntry.SETFILTER("Document No.",DocNoFilter);
+        SquashLedgEntry.SETFILTER("Posting Date",PostingDateFilter);
+        Page.Run(0, SquashLedgEntry);
+    end;
+end;
+```
+
+Come risultato finale dobbiamo ottenere:
+
+![Navigate](/img/bc-posting-navigate.png)

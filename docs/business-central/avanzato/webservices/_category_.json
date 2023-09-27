@@ -2,7 +2,6 @@
     "label": "WebService",
     "position": 5,
     "link": {
-        "type": "generated-index",
-        "id": "business-central/avanzato/webservice"
+        "type": "generated-index"
     }
 }
