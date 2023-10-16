@@ -4,6 +4,8 @@ sidebar_label: 'Esercizio'
 
 # Designing a Squash Court app
 
+[Link Codice Sorgente GitHub](https://github.com/thomascristofaro/its-bc-posting)
+
 Creiamo una struttura personalizzata in Microsoft Business Central. Gestiremo un'azienda che noleggia campi da squash. Per prima cosa dobbiamo definire le modifiche e le espansioni al prodotto, per farlo dobbiamo effettuare una **Fit-gap analysis**: esaminiamo i processi dell'azienda e definiamo cosa possiamo e cosa non possiamo fare con il pacchetto standard. Quando un processo aziendale può essere gestito con il software standard, lo chiamiamo "aderente" (**Fit**). Quando non è possibile farlo, si tratta di uno "scostamento" (**Gap**), possiamo colmare un gap sviluppando una soluzione personalizzata o acquistando un componente aggiuntivo.
 
 ## Analisi
@@ -39,9 +41,11 @@ Bisogna quindi analizzare la funzione che troviamo nella pagina `Contact Card` c
 
 Analizzando la funzione, vedremo che avremo bisogno di:
 * **Squash Setup**: Squash Player Nos. e Squash Court Nos.
+
 ![Squash Setup](/img/bc-posting-image-6.png)
 
 * **Squash Player** master table: prendiamo la esempi dalla tabella Contact perchè c'è il transferfield + nel campo "Series No." aggiungere TableRelation con "Series No."
+
 ![Squash Player](/img/bc-posting-image-7.png)
 
 Aggiungere ora il codice per la gestione del numeratore:
