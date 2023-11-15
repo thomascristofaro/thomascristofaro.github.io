@@ -11,7 +11,8 @@
 ## AI Link
 - [Microsoft Learn: Transform your business with AI](https://learn.microsoft.com/en-us/training/paths/transform-your-business-with-microsoft-ai/)
 - [Digital4: AI - come può aiutare le imprese](https://www.digital4.biz/executive/ai-cos-e-l-intelligenza-artificiale-e-come-puo-aiutare-le-imprese/): Podcast che sembra interessante e articolo collegato con molte informazioni
-- [Microsoft Collection GitHub AI for beginners](https://microsoft.github.io/AI-For-Beginners/)
+- [Microsoft GitHub AI for beginners](https://microsoft.github.io/AI-For-Beginners/)
+- [Microsoft GitHub Generative AI for beginners](https://microsoft.github.io/generative-ai-for-beginners/)
 - [AI LAB Projects](https://www.microsoft.com/en-us/ai/ai-lab): non di tutti ci sono i sorgenti, alcuni sono solo case study
     - [AI LAB GitHub](https://github.com/microsoft/ailab): i sorgenti di alcuni progetti
 
@@ -38,3 +39,4 @@
 - [Microsoft Azure Well-Architected Framework](https://learn.microsoft.com/en-us/azure/well-architected/)
 - [Microsoft Cloud Adoption Framework for Azure](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/)
 - [Azure Opensource Labs](https://learn.microsoft.com/it-it/samples/azure-samples/azure-opensource-labs/azure-opensource-labs/)
+- [Create a Teams ChatBot](https://learn.microsoft.com/en-us/training/modules/create-chatbot-power-virtual-agents-dataverse-teams/)
