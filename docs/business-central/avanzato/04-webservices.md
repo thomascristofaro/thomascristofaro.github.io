@@ -123,13 +123,13 @@ Possiamo farlo in due modi:
 ## Creare API Custom
 
 Per creare una nuova API in Business Central, devi creare una Page e quindi impostare la proprietà PageType = API. Devi impostare anche le seguenti proprietà:
-* APIPublisher - Il nome dell'azienda che ha creato le API. Questo valore viene utilizzato nell'URL per connettersi all'API e viene utilizzato per raggruppare tutte le API dello stesso publisher.
-* APIGroup - Un gruppo utilizzato per raggruppare logicamente un insieme di API. Questo valore viene utilizzato anche nell'URL per connettersi all'API.
-* APIVersion - La versione della tua API. Puoi creare più versioni della stessa API. Ogni versione è un oggetto separato, con il proprio numero di oggetto. Tuttavia, puoi supportare più versioni contemporaneamente. In questo modo, gli altri servizi che si basano sul tuo servizio API non devono essere modificati direttamente quando il tuo servizio aggiunge un nuovo campo o modifica la struttura dell'API. Il valore di questo campo piò essere: beta or v1.0, v1.1, v1.2, v2.0, and so on. 
-* EntityName - Il valore singolo dell'entità restituita dall'API (Customer, Item, Car, Vendor, Artist, Movie, and so on).
-* EntitySetName - Questo parametro è il valore plurale per l'entità restituita dall'API (Customers, Items, Cars, Vendors, Artists, Movies, and so on).
-* ODataKeyFields - Questa proprietà indica quale campo verrà utilizzato come chiave. Quando richiedi un record specifico, puoi impostare questa proprietà per indicare quale campo utilizzerai per cercare quel particolare record. Microsoft crea un campo SystemId, che è disponibile su ogni tabella, anche sulle tue tabelle, senza la necessità di doverlo creare tu stesso. Il campo SystemId identificherà un record in modo univoco e non cambierà mai nel tempo, anche se aggiorni la chiave primaria. Ti consiglo di utilizzare il campo SystemId come ODataKeyFields.
-* DelayedInsert - Questo valore deve essere sempre impostato su true per le pagine API. Questa impostazione garantisce che i valori vengano inseriti nel database solo quando viene effettuato il provisioning di tutti i valori dalla richiesta API.
+* **APIPublisher** - Il nome dell'azienda che ha creato le API. Questo valore viene utilizzato nell'URL per connettersi all'API e viene utilizzato per raggruppare tutte le API dello stesso publisher.
+* **APIGroup** - Un gruppo utilizzato per raggruppare logicamente un insieme di API. Questo valore viene utilizzato anche nell'URL per connettersi all'API.
+* **APIVersion** - La versione della tua API. Puoi creare più versioni della stessa API. Ogni versione è un oggetto separato, con il proprio numero di oggetto. Tuttavia, puoi supportare più versioni contemporaneamente. In questo modo, gli altri servizi che si basano sul tuo servizio API non devono essere modificati direttamente quando il tuo servizio aggiunge un nuovo campo o modifica la struttura dell'API. Il valore di questo campo piò essere: beta or v1.0, v1.1, v1.2, v2.0, and so on. 
+* **EntityName** - Il valore singolo dell'entità restituita dall'API (Customer, Item, Car, Vendor, Artist, Movie, and so on).
+* **EntitySetName** - Questo parametro è il valore plurale per l'entità restituita dall'API (Customers, Items, Cars, Vendors, Artists, Movies, and so on).
+* **ODataKeyFields** - Questa proprietà indica quale campo verrà utilizzato come chiave. Quando richiedi un record specifico, puoi impostare questa proprietà per indicare quale campo utilizzerai per cercare quel particolare record. Microsoft crea un campo SystemId, che è disponibile su ogni tabella, anche sulle tue tabelle, senza la necessità di doverlo creare tu stesso. Il campo SystemId identificherà un record in modo univoco e non cambierà mai nel tempo, anche se aggiorni la chiave primaria. Ti consiglo di utilizzare il campo SystemId come ODataKeyFields.
+* **DelayedInsert** - Questo valore deve essere sempre impostato su true per le pagine API. Questa impostazione garantisce che i valori vengano inseriti nel database solo quando viene effettuato il provisioning di tutti i valori dalla richiesta API.
 
 L'esempio di codice seguente mostra la struttura di una pagina API personalizzata che utilizza la tabella Customer.
 
@@ -181,10 +181,67 @@ Nel caso specifico l'url quindi diventa:
 
 Provare quindi a contattarlo per visuallizzare la risposta.
 
+Nel caso in cui la richiesta restituisca un errore relativa alla company, bisogna inserire anche l'id della company a cui si vuole accedere, quindi l'url diventa:
 
-## Filtrare
-https://learn.microsoft.com/it-it/dynamics365/business-central/dev-itpro/developer/devenv-connect-apps-filtering
+```<base URL>/api/mycompany/sales/v1.0/companies(<company id>)/mycustomers```
 
+## Basic Operations
+
+| Method | Description                         | Example                           |
+|--------|-------------------------------------|-----------------------------------|
+| GET    | List collection                     | GET .../entitysetname             |
+| GET    | Get member of the collection        | GET .../entitysetname({id})       |
+| POST   | Create new entity in the collection | POST .../entitysetname/           |
+| PATCH  | Update entity                       | PATCH .../entitysetname({id})     |
+| DELETE | Delete entity                       | DELETE .../entitysetname({id})    |
+
+## GET API
+Per leggere i dati da una tabella, è necessario utilizzare il metodo GET. Il metodo GET può essere utilizzato per leggere un singolo record o un elenco di record:
+* Elenco di record: ```.../<entitysetname>```
+* Singolo record: ```.../<entitysetname>(<id>)```
+
+![API2](/img/API2.png)
+
+### Filtrare
+Per filtrare i dati, è necessario utilizzare il parametro $filter. Il parametro $filter deve essere integrato nell'URL nel seguente modo: ```.../<entitysetname>?$filter=<filter>```
+
+Il parametro $filter può essere utilizzato con i seguenti operatori:
+
+| Operator | Description            | Example                          |
+|----------|------------------------|----------------------------------|
+| eq       | Equal                  | $filter=category eq 'Expense'    |
+| ne       | Not equal              | $filter=unitPrice ne 0           |
+| gt       | Greater than           | $filter=unitPrice gt 1000        |
+| ge       | Greater than or equal  | $filter=unitPrice ge 1000        |
+| lt       | Less than              | $filter=unitPrice lt 1000        |
+| le       | Less than or equal     | $filter=unitPrice le 1000        |
+| and         | Logical and                | $filter=number ge '50000' and number lt '60000'              |
+| or          | Logical or                 | $filter=category eq 'Expense' or category eq 'Income'        |
+| not         | Logical negation           | Not supported                                                |
+| ()          | Precedence grouping        | $filter=(category eq 'Expense' or category eq 'Income') and (number ge '40000' and number lt '50000') |
+| contains    | Search for substring       | $filter=contains(displayName, 'red')                         |
+| endswith    | Test if first string ends with second string | $filter=endswith(email,'contoso.com')             |
+| startswith  | Test if first string starts with second string | $filter=startswith(email,'aj')                   |
+| concat      | Returns a string that appends the second parameter to the first | Not supported            |
+
+## POST API
+Per inserire un record in una tabella, è necessario utilizzare il metodo POST all'url ```.../<entitysetname>```. Il body della richiesta deve contenere i dati del record da inserire sotto forma di JSON. Restituirà un codice di stato 201 Created e il record inserito.
+
+![API3](/img/API3.png)
+
+## PATCH API
+Per modificare un record in una tabella, è necessario utilizzare il metodo PATCH all'url ```.../<entitysetname>(<id>)```. Il body della richiesta deve contenere i dati del record da modificare sotto forma di JSON. Restituirà un codice di stato 200 OK e il record modificato. In aggiunta bisogna anche inserire l'header ```If-Match``` con il valore ```*```.
+
+![API4](/img/API4.png)
+
+## DELETE API
+Per eliminare un record in una tabella, è necessario utilizzare il metodo DELETE all'url ```.../<entitysetname>(<id>)```. Restituirà un codice di stato 204 No Content.
+
+![API4](/img/API5.png)
+
+## Esercizio
+
+Costruire un'API per la Squash application creata nelle precedenze lezioni. Creare una pagina "SquashPlayerAPI" con i seguenti campi: id, no, name, member. Provare a leggere, inserire, modificare ed eliminare i dati tramite postman.
 
 ## Connessione con Power Platform
 
@@ -196,18 +253,9 @@ Un gateway dati on-premises è un software che viene installato in una rete loca
 ## Lettura API esterne
 [Microsoft Learn](https://learn.microsoft.com/it-it/training/modules/access-rest-services/)
 
-
-## Esercizio
-
-Esporre la lista corsi; importare tempistiche e registrarle
-
-
 ## Link utili
+- [Guida BC API](https://yzhums.com/6117/)
+- [Reference for filtering](https://learn.microsoft.com/it-it/dynamics365/business-central/dev-itpro/developer/devenv-connect-apps-filtering)
 - [Interfacciarsi con Microsoft Dynamics 365 Business Central](https://learn.microsoft.com/it-it/training/paths/interface-with-business-central/)
 - [Enabling Apis](https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/api-reference/v2.0/enabling-apis-for-dynamics-nav)
 
-:::caution Attenzione
-
-**In fase di creazione**.
-
-:::
