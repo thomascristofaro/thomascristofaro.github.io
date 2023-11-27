@@ -61,7 +61,7 @@ report 50100 MyReport
         {
             column(ColumnName; SourceFieldName)
             {
-
+                IncludeCaption = true; // proprietà opzionale - aggiunge in automatico anche la caption del campo
             }
             // ...
         }
@@ -168,12 +168,6 @@ Nei trigger dei DataItem viene inserita la maggior parte della logica di flusso 
 
 ## Layout
 
-:::caution Attenzione
-
-**In fase di creazione**.
-
-:::
-
 Il layout visivo determina il contenuto e il formato di un report quando viene visualizzato e stampato, ad esempio il carattere e la dimensione del testo.
 Il layout include l'intestazione di pagina, il corpo e il piè di pagina. All'interno del corpo del report, possono esserci più righe di dettaglio. Le righe di dettaglio sono la definizione della visualizzazione dei dati primari e ripetitivi (es. il dettaglio delle righe di un ordine).
 
@@ -182,26 +176,70 @@ Esistono tre tipi di layout di report:
 * Word: È possibile creare layout di Word usando un documento Word. I layout di Word si basano su un documento di Word che include una parte XML personalizzata che rappresenta il set di dati del report.
 
 
-## Creazione di un report
+## Report Word
 
+I report Word sono basati su un documento Word che include una parte XML personalizzata che rappresenta il set di dati del report. Si inizia impostando la tipologia di layout all'interno del dataset. Si può fare in due modi:
+
+Utilizzare la proprietà **WordLayout**:
+
+```al
+report 50100 "Report Test"
+{
+    DefaultLayout = Word;
+    RDLCLayout = 'path/reportRDL.rdl';
+    WordLayout = 'path/reportWORD.docx';
+}
+```
+
+Oppure utilizzare la proprietà **DefaultRenderingLayout**:
+
+```al
+report 50100 "Report Test"
+{
+    DefaultRenderingLayout = WordLayout;
+    
+    // ... dopo la request page:
+    
+    rendering
+    {
+        layout(WordLayout)
+        {
+            Type = Word;
+            LayoutFile = 'path/reportWORD.docx';
+        }
+    }
+}
+```
+A questo punto compilare l'app e vedrete il file .docx creato in automatico nella cartella impostata come path (solitamente è la cartella report del progetto).
+
+In Visual Studio Code, fai clic con il tasto destro del mouse sul file DOCX e scegli "Apri esternamente". Questo aprirà Microsoft Word.
+
+Se non l'hai già fatto, assicurati di avere la scheda Sviluppo abilitata. Fai clic su File | Opzioni | Personalizzazione barra multifunzione. Nella scheda principale, seleziona l'opzione Sviluppo e clicca su OK:
+
+![3-report-1](/img/bc-reporting-word-1.png)
+
+Quindi ora è possibile andare nella schea Sviluppo e fare clic su "Riquadro mapping XML". Nella barra che si apre, selezionare in "Web part XML personalizzata" l'ultima opzione dal drop-down menu, dovrebbe apparire simile all'immagine:
+
+![3-report-2](/img/bc-reporting-word-2.png)
+
+Adesso è possibile inserire del contenuto nel documento word. Per farlo, posizionarsi con il cursore nel punto in cui si vuole inserire qualcosa, nella barra laterale fare click-destro sull'elemento che si vuole aggiungere e quindi "inserisci controllo contenuto" -> "testo normale" o "immagine" a seconda del contenuto. Gli elementi inseriti fuori da un controllo ripetuto verranno presi dalla prima riga del dataset.
+
+Se si vuole inserire una tabella con i dati del dataset, posizionarsi nel punto in cui si vuole inserire la tabella, fare inserisci -> tabella -> 2 righe e x colonne a seconda dei campi che si vuole mettere. Nella prima riga inserire le caption della tabella allo stesso modo di come si aggiungono gli elementi sparsi nel documento. Nella seconda riga, invece bisogna inserire il controllo ripetuto: selezionare la riga -> click destro sul dataitem da inserire -> "ripetuto". A questo punto, dentro all'elemento repeater appena inserito, continuare ad inserire dei testi normali a partire da campi come fatto finora.
+
+Un esempio di come potrebbe essere il documento word:
+![3-report-3](/img/bc-reporting-word-3.png)
+
+A questo punto installare e lanciare il report. Per visualizzare il layout word, cliccare su "Invia a" -> "Microsoft Word".
 
 ## Processing-only report
 
-In Business Central, report objects can be classified as processing
-only, such as report 795 Adjust Cost - Item Entries, by setting the correct
-report property, that is, by setting the ProcessingOnly property to Yes. A
-processing only report will not display data to the user—it will simply
-process and update data in the tables. Report objects are convenient
-to use for processing because the report's automatic read-processwrite
-loop and the built-in request page reduce coding that would
-otherwise be required. A report can add, change, or delete data in
-tables, regardless of whether the report is processing only or a
-typical report that generates output for viewing.
-
+In Business Central, esistono i report definiti "processing only", come il report numero 795, "Adjust Cost - Item Entries". Questi report si distinguono perché hanno la proprietà "ProcessingOnly" impostata su "true". La caratteristica principale di un report "processing only" è che non mostra i dati agli utenti, ma si concentra esclusivamente sull'elaborazione e l'aggiornamento dei dati presenti nelle tabelle. L'utilizzo di oggetti report per queste funzioni è particolarmente vantaggioso: grazie al loro ciclo automatico di lettura, elaborazione e scrittura, e alla presenza di una request page integrata, si riduce notevolmente la necessità di scrittura del codice. Inoltre, è importante sapere che un report può eseguire operazioni di aggiunta, modifica o cancellazione di record nelle tabelle, a prescindere dal fatto che sia un report "processing only" o un report tradizionale che genera output visibili.
 
 ## Esercizio
 
-Lista partecipanti, certificato, fatturazione
+* Lista di clienti e fornitori
+* Lista di articoli e quantità disponibili per magazzino
+* Collegandoci all'applicazione squash, creare un report di lista degli Squash Player
 
 ## Link utili
 - [Creazione di report per Microsoft Dynamics 365 Business Central](https://learn.microsoft.com/it-it/training/paths/build-reports/)
