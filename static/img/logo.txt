@@ -1,1 +1,0 @@
-https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=200&rounded=true&format=svg&name=Thomas
