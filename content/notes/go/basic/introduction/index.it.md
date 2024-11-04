@@ -1,9 +1,9 @@
 ---
-title: Go পরিচিতি
+title: Introduction
 weight: 10
 menu:
   notes:
-    name: পরিচিতি
+    name: Introduction
     identifier: notes-go-basics-intro
     parent: notes-go-basics
     weight: 10
@@ -42,6 +42,8 @@ $ go run hello.go
 var msg string
 msg = "Hello"
 ```
+
+---
 
 **Shortcut:**
 ```go

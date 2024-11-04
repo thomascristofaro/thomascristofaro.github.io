@@ -1,8 +1,8 @@
 ---
-title: Top Category Sample
+title: Top Esempio Categorie
 menu:
   sidebar:
-    name: বিভাগ
+    name: Categorie
     identifier: category
     weight: 20
 ---

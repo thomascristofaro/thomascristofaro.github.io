@@ -1,9 +1,9 @@
 ---
-title: বেসিক টাইপ সমূহ 
+title: Basic Types
 weight: 20
 menu:
   notes:
-    name: বেসিক টাইপ সমূহ 
+    name: Basic Types
     identifier: notes-go-basics-types
     parent: notes-go-basics
     weight: 20

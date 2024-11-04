@@ -31,7 +31,7 @@ languages:
     title: "Thomas Cristofaro"
     weight: 2
 # default language for the content
-defaultContentLanguage: it
+defaultContentLanguage: en
 
 
 # Allow raw html in markdown file
