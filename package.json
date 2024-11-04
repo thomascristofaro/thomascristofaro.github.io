@@ -59,6 +59,6 @@
     "postcss": "^8.4.41",
     "postcss-cli": "^11.0.0"
   },
-  "name": "hugo-toha.github.io",
+  "name": "thomascristofaro.github.io",
   "version": "0.1.0"
 }
