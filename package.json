@@ -30,7 +30,9 @@
       "postcss-cli": "github.com/hugo-toha/toha/v4"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "@popperjs/core": "^2.11.8"
+  },
   "devDependencies": {
     "@fontsource/mulish": "4.5.13",
     "@fortawesome/fontawesome-free": "^6.6.0",

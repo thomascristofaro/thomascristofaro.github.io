@@ -1,0 +1,17 @@
+# some information about you
+name: "Thomas Cristofaro"
+nickname: "Thomas"
+greeting: "Ciao, sono"
+image: "images/author/john.png"
+
+contactInfo:
+  email: "thomas@cristofaro.dev"
+  phone: "+39-3208032666"
+  github: thomascristofaro
+  linkedin: thomascristofaro
+
+summary:
+  - Sono uno sviluppatore freelance
+  - Sono un esperto di tecnologie Microsoft
+  - Amo il cloud e l’AI
+  - Sviluppo business app intelligenti

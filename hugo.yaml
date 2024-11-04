@@ -1,7 +1,7 @@
 baseURL: https://thomascristofaro.github.io/
 
 languageCode: it
-title: "Thomas's Blog"
+title: "Thomas Cristofaro"
 
 # Use Hugo modules to add theme
 module:
@@ -23,15 +23,15 @@ languages:
   en:
     languageCode: en
     languageName: English
-    title: "Thomas's Blog"
+    title: "Thomas Cristofaro"
     weight: 1
   it:
     languageCode: it
     languageName: Italiano
-    title: "Blog di Thomas"
+    title: "Thomas Cristofaro"
     weight: 2
 # default language for the content
-defaultContentLanguage: en
+defaultContentLanguage: it
 
 
 # Allow raw html in markdown file
@@ -41,7 +41,7 @@ markup:
       unsafe: true
   tableOfContents:
     startLevel: 2
-    endLevel: 6
+    endLevel: 4
     ordered: false
 
 # At least HTML and JSON are required for the main HTML content and
@@ -63,9 +63,9 @@ params:
   # Provide logos for your site. The inverted logo will be used in the initial
   # transparent navbar and the main logo will be used in the non-transparent navbar.
   logo:
-    main: /images/site/main-logo.png
-    inverted: /images/site/inverted-logo.png
-    favicon: /images/site/favicon.png
+    main: /images/site/avatar.png
+    inverted: /images/site/avatar-inverted.png
+    favicon: /images/site/avatar.png
 
   # GitHub repo of your site
   gitRepo: https://github.com/thomascristofaro/thomascristofaro.github.io
@@ -78,12 +78,6 @@ params:
 
   # Configure various features of this theme
   features:
-    # [Deprecated] Enable dark theme
-    # This is a deprecated setting, but has not been removed to maintain backward compatibility
-    # If `theme` is set, the `darkMode` setting will be discarded.
-    # darkMode:
-    #   enable: true
-
     # Configure theme color settings
     theme:
       enable: true
@@ -185,6 +179,7 @@ params:
         #   color: '#FFDD00'
 
     # specify whether you want to show Table of Contents in reading page
+    # for levels search tableOfContents
     toc:
       enable: true
 
@@ -287,7 +282,7 @@ params:
     navigation:
       enable: true
       # show custom menus in the footer
-      customMenus: true
+      customMenus: false
     # Show/hide "Contact Me" section in the footer. Default is "true".
     contactMe:
       enable: true
@@ -304,4 +299,4 @@ params:
 
     # Show/hide disclaimer notice in the footer. Default is "false".
     disclaimer:
-      enable: true
+      enable: false
