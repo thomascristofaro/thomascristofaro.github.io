@@ -3,9 +3,9 @@ section:
   name: Skills
   id: skills
   enable: true
-  weight: 2
-  showOnNavbar: true
-  filter: true
+  weight: 3
+  showOnNavbar: false
+  filter: false
   # Can optionally hide the title in sections
   # hideTitle: true
 
@@ -24,6 +24,7 @@ buttons:
 
 # Your Skills.
 # Give a summary of you each skill in the summary section.
+# Cloud Computing, Dynamics 365/AL, Power Platform, OpenAI, Git, Docker, C#, Python, JS
 skills:
 - name: Kubernetes
   logo: /images/sections/skills/kubernetes.png
