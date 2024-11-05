@@ -63,9 +63,9 @@ params:
   # Provide logos for your site. The inverted logo will be used in the initial
   # transparent navbar and the main logo will be used in the non-transparent navbar.
   logo:
-    main: /images/site/avatar.png
-    inverted: /images/site/avatar-inverted.png
-    favicon: /images/site/avatar.png
+    main: /images/site/avatar-sign.png
+    inverted: /images/site/avatar-sign.png
+    favicon: /images/site/avatar-sign.png
 
   # GitHub repo of your site
   gitRepo: https://github.com/thomascristofaro/thomascristofaro.github.io

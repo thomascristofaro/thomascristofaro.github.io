@@ -6,12 +6,12 @@ image: "images/author/thomas.jpg"
 
 contactInfo:
   email: "thomas@cristofaro.dev"
-  phone: "+39-3208032666"
+  phone: "+393208032666"
   github: thomascristofaro
   linkedin: thomascristofaro
 
 summary:
-  - Sono uno sviluppatore freelance
-  - Sono un esperto di tecnologie Microsoft
-  - Amo il cloud e l’AI
-  - Sviluppo business app intelligenti
+  - I am a freelancer dev
+  - I am a Microsoft tech pro
+  - I love cloud and AI
+  - I build smart business apps
