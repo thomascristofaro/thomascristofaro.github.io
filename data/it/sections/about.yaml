@@ -34,6 +34,11 @@ resourceLinks:
 # You can show your verifiable certificates from https://www.credly.com.
 # You can also show a circular bar indicating the level of expertise on a certain skill
 badges:
+- type: certification
+  name: Specialization in Digital Transformation
+  url: "https://bestr.it/badge/show/4175"
+  badge: "https://bestr.it/filemanager/show/eda99c8f-d290-4492-9685-3e36c322cffe.png"
+
 - type: soft-skill-indicator
   name: Team Work
   percentage: 80
@@ -44,7 +49,7 @@ badges:
   percentage: 90
   color: orange
 
-- type: soft-skill-indicator
-  name: Leadership
-  percentage: 70
-  color: blue
+# - type: soft-skill-indicator
+#   name: Leadership
+#   percentage: 70
+#   color: blue

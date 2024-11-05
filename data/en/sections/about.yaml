@@ -51,6 +51,11 @@ badges:
 #   url: "https://www.credly.com/org/the-linux-foundation/badge/exam-developer-certified-kubernetes-security-specialist"
 #   badge: "https://images.credly.com/size/680x680/images/f4bf92ed-8985-40b2-bc07-2f9308780854/kubernetes-security-specialist-logo-examdev.png"
 
+- type: certification
+  name: Specialization in Digital Transformation
+  url: "https://bestr.it/badge/show/4175"
+  badge: "https://bestr.it/filemanager/show/eda99c8f-d290-4492-9685-3e36c322cffe.png"
+
 - type: soft-skill-indicator
   name: Team Work
   percentage: 80
@@ -61,10 +66,10 @@ badges:
   percentage: 90
   color: orange
 
-- type: soft-skill-indicator
-  name: Leadership
-  percentage: 70
-  color: blue
+# - type: soft-skill-indicator
+#   name: Leadership
+#   percentage: 70
+#   color: blue
 
 # you can also provide color code instead of the color name
 # - type: soft-skill-indicator

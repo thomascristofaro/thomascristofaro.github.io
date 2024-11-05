@@ -11,63 +11,49 @@ section:
 # Your experiences
 experiences:
 - company:
-    name: Example Co.
-    url: "https://www.example.com"
-    location: Dhaka Branch
-    logo: /images/sections/experiences/company1.jpg
-    # Can optionally show a different logo for dark theme
-    # darkLogo: /images/sections/experiences/company1.jpg
-    # company overview
-    overview: Example Co. is a widely recognized company for cloud-native development. It builds tools for Kubernetes.
+    name: Fondazione ITS ICT Piemonte
+    url: "https://www.its-ictpiemonte.it/"
+    location: Torino
+    logo: /images/sections/experiences/its.png
+    darkLogo: /images/sections/experiences/its-inverted.png
+    overview: ITS ICT Piemonte organizes two-year technical courses funded by the Piedmont Region.
   positions:
-  - designation: Senior Software Engineer
-    start: Nov 2019
-    # don't provide end date if you are currently working there. It will be replaced by "Present"
-    # end: Dec 2020
-    # give some points about what was your responsibilities at the company.
+  - designation: Microsoft Software Trainer
+    start: Dec 2022
     responsibilities:
-    - Design and develop XYZ tool for ABC task
-    - Design, develop and manage disaster recovery tool [Xtool](https://www.example.com) that backup Kubernetes volumes, databases, and cluster's resource definition.
-    - Lead backend team.
-
-  - designation: Junior Software Engineer
-    start: Nov 2017
-    end: Oct 2019
-    responsibilities:
-    - Implement and test xyz feature for abc tool.
-    - Support client for abc tool.
-    - Learn k,d,w technology for xyz.
+    - Technical Coordinator of the two-year Business App Developer program.
+    - Teacher of "Business Central Development" course and various project laboratories. 
 
 - company:
-    name: PreExample Co.
-    url: "https://www.example.com"
-    location: Nowhere
-    logo: /images/sections/experiences/company2.jpg
-    # Can optionally show a different logo for dark theme
-    # darkLogo: /images/sections/experiences/company2.jpg
-    overview: PreExample Co. is a gateway company to enter into Example co. So, nothing special here.
+    name: Horsa Spa
+    url: "https://www.horsa.com/it/it"
+    location: Torino
+    logo: /images/sections/experiences/horsa.png
+    overview: Horsa is an italian ICT excellence on ERP, CRM, Business Analytics and Technology areas.
   positions:
-  - designation: Software Engineer
-    start: March 2016
-    end: May 2017
+  - designation: Microsoft Software Architect
+    start: Apr 2023
+    end: Oct 2024
+    responsibilities: 
+    - I analyze, develop, and evaluate the feasibility of software solutions, designing the architecture of new systems according to the required specifications. 
+    - "I work with Microsoft technologies: Dynamics 365, Power Platform, and Azure (Functions, AI Services, Copilot)."
+    - I manage a development team and actively collaborate with corporate stakeholders and clients.
+
+  - designation: Microsoft Software Engineer
+    start: Sep 2018
+    end: Apr 2023
     responsibilities:
-    - Write lots of example codes.
-    - Read lots of examples.
-    - See lots of example videos.
+    - Expert of integrations between Microsoft Business Central, Power Platform, and external enterprise software.
+    - Taught at two Horsa Academies, three corporate training courses, and several internal webinars.
+    - Developed business application for desktop (C#) and Web (Python, Javascript)
 
 - company:
-    name: Intern Counting Company (ICC).
-    url: "https://www.example.com"
-    location: Intern Land
-    logo: /images/sections/experiences/company3.jpg
-    # Can optionally show a different logo for dark theme
-    # darkLogo: /images/sections/experiences/company3.jpg
-    overview: Intern counting Company (ICC) is responsible for counting worldwide intern Engineers.
+    name: OLAB Studio
+    url: "https://olab-studio.com/"
+    location: Nettuno
+    logo: /images/sections/experiences/olab.png
+    overview: Software house specializing in product development with Django/Python.
   positions:
-  - designation: Intern
-    start: Jun 2015
-    end: Jan 2016
-    responsibilities:
-    - Count lost of interns.
-    - Count more interns.
-    - Count me as an intern.
+  - designation: Web Developer Intern
+    start: Jul 2015
+    end: Sep 2015
