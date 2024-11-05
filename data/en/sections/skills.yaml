@@ -15,58 +15,43 @@ buttons:
   filter: "all"
 - name: Basic
   filter: "basic"
-- name: Language
-  filter: "language"
-- name: Container
-  filter: "container"
-- name: Others
-  filter: "others"
+- name: Microsoft
+  filter: "microsoft"
 
 # Your Skills.
 # Give a summary of you each skill in the summary section.
-# Cloud Computing, Dynamics 365/AL, Power Platform, OpenAI, Git, Docker, C#, Python, JS
 skills:
-- name: Kubernetes
-  logo: /images/sections/skills/kubernetes.png
-  summary: "Capable of deploying, managing application on Kubernetes. Experienced in writing Kubernetes controllers for CRDs."
-  categories: ["container"]
-  url: "https://kubernetes.io/"
+- name: Microsoft Business Central
+  logo: /images/sections/skills/business-central.png
+  summary: "Years of experience with Business Central developing apps and integration systems for clients. Delivered training for companies and schools."
+  categories: ["microsoft"]
+  url: "https://www.microsoft.com/dynamics-365/products/business-central"
 
-- name: Go Development
-  logo: /images/sections/skills/go.png
-  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable program."
-  categories: ["basic", "language"]
-  url: "https://golang.org/"
+- name: Microsoft Power Platform
+  logo: /images/sections/skills/power-platform.png
+  summary: "Developed and automated applications integrated with other Microsoft solutions, also providing training for team members and business users."
+  categories: ["microsoft"]
+  url: "https://www.microsoft.com/power-platform"
 
 - name: Cloud Computing
   logo: /images/sections/skills/cloud.png
-  summary: "Worked with most of the major clouds such as GCP, AWS, Azure etc."
-  categories: ["others"]
+  summary: "Experienced with Microsoft Azure and AWS, particularly in serverless business applications."
+  categories: ["microsoft"]
+  url: "https://azure.microsoft.com/"
 
-- name: Docker
-  logo: /images/sections/skills/docker.svg
-  summary: "Write most of the programs as dockerized container. Experienced with multi-stage, multi-arch build process."
-  categories: ["container"]
-  url: "https://www.docker.com/"
-
-- name: Prometheus
-  logo: /images/sections/skills/prometheus.png
-  summary: "Capable of setup, configure Prometheus metrics. Experienced with PromQL, AlertManager. Also, experienced with writing metric exporters."
+- name: Development multilanguage
+  logo: /images/sections/skills/visual-studio-code.png
+  summary: "'It's not about the language, but the algorithm' - this perspective has led me to build skills across multiple languages (Python, JavaScript, C#, etc)."
   categories: ["basic"]
-  url: "https://prometheus.io/"
 
-- name: Linux
-  logo: /images/sections/skills/linux.png
-  summary: "Using as the main operating system. Capable of writing bash/shell scripts."
-  categories: ["others"]
+- name: OpenAI
+  logo: /images/sections/skills/openai.png
+  summary: "Experimented with OpenAI models through Azure, applying them in a business context."
+  categories: ["microsoft"]
+  url: "https://openai.com/"
 
 - name: Git
   logo: /images/sections/skills/git.png
-  summary: "Experienced with git-based development. Mostly, use Github. Also, have experience in working with GitLab."
+  summary: "Extensive experience with Git for code management, using GitHub for personal projects and GitLab for business projects."
   categories: ["basic"]
   url: "https://git-scm.com/"
-
-- name: C++
-  logo: /images/sections/skills/c++.png
-  summary: "Know basic C/C++ programming. Used for contest programming and problem solving."
-  categories: ["basic", "language"]

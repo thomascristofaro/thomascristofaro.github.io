@@ -5,7 +5,7 @@ section:
   enable: true
   weight: 3
   showOnNavbar: false
-  filter: true
+  filter: false
   # Can optionally hide the title in sections
   # hideTitle: true
 
@@ -15,57 +15,43 @@ buttons:
   filter: "all"
 - name: Basic
   filter: "basic"
-- name: Language
-  filter: "language"
-- name: Container
-  filter: "container"
-- name: Others
-  filter: "others"
+- name: Microsoft
+  filter: "microsoft"
 
 # Your Skills.
 # Give a summary of you each skill in the summary section.
 skills:
-- name: Kubernetes
-  logo: /images/sections/skills/kubernetes.png
-  summary: "Capable of deploying, managing application on Kubernetes. Experienced in writing Kubernetes controllers for CRDs."
-  categories: ["container"]
-  url: "https://kubernetes.io/"
+- name: Microsoft Business Central
+  logo: /images/sections/skills/business-central.png
+  summary: "Anni di esperienza su Business Central nello sviluppo di app e integrazioni per diversi clienti. Ho condotto corsi di formazione per aziende e scuole."
+  categories: ["microsoft"]
+  url: "https://www.microsoft.com/dynamics-365/products/business-central"
 
-- name: Go Development
-  logo: /images/sections/skills/go.png
-  summary: "Using as the main language for professional development. Capable of writing scalable, testable, and maintainable program."
-  categories: ["basic", "language"]
-  url: "https://golang.org/"
+- name: Microsoft Power Platform
+  logo: /images/sections/skills/power-platform.png
+  summary: "Ho sviluppato e automatizzato applicazioni integrate con altre soluzioni Microsoft, erogando corsi di formazione per team e utenti aziendali."
+  categories: ["microsoft"]
+  url: "https://www.microsoft.com/power-platform"
 
 - name: Cloud Computing
   logo: /images/sections/skills/cloud.png
-  summary: "Worked with most of the major clouds such as GCP, AWS, Azure etc."
-  categories: ["others"]
+  summary: "Esperienza con Microsoft Azure e AWS, in particolare in applicazioni aziendali serverless."
+  categories: ["microsoft"]
+  url: "https://azure.microsoft.com/"
 
-- name: Docker
-  logo: /images/sections/skills/docker.svg
-  summary: "Write most of the programs as dockerized container. Experienced with multi-stage, multi-arch build process."
-  categories: ["container"]
-  url: "https://www.docker.com/"
-
-- name: Prometheus
-  logo: /images/sections/skills/prometheus.png
-  summary: "Capable of setup, configure Prometheus metrics. Experienced with PromQL, AlertManager. Also, experienced with writing metric exporters."
+- name: Development multilanguage
+  logo: /images/sections/skills/visual-studio-code.png
+  summary: "'Non è importante il linguaggio, ma l'algoritmo' - Questo approccio mi ha portato a competenze in vari linguaggi (Python, JavaScript, C#, ecc.)."
   categories: ["basic"]
-  url: "https://prometheus.io/"
 
-- name: Linux
-  logo: /images/sections/skills/linux.png
-  summary: "Using as the main operating system. Capable of writing bash/shell scripts."
-  categories: ["others"]
+- name: OpenAI
+  logo: /images/sections/skills/openai.png
+  summary: "Ho sperimentato l'utilizzo di modelli OpenAI tramite Azure, applicandoli in un contesto aziendale."
+  categories: ["microsoft"]
+  url: "https://openai.com/"
 
 - name: Git
   logo: /images/sections/skills/git.png
-  summary: "Experienced with git-based development. Mostly, use Github. Also, have experience in working with GitLab."
+  summary: "Ampia esperienza con Git per la gestione del codice, usando GitHub per progetti personali e GitLab per progetti aziendali."
   categories: ["basic"]
   url: "https://git-scm.com/"
-
-- name: C++
-  logo: /images/sections/skills/c++.png
-  summary: "Know basic C/C++ programming. Used for contest programming and problem solving."
-  categories: ["basic", "language"]
