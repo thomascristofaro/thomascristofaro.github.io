@@ -18,3 +18,16 @@ summary:
   - I am a Microsoft tech pro
   - I love cloud and AI
   - I build smart business apps
+  
+socialLinks:
+- name: Email
+  icon: "fa fa-envelope"
+  url: "thomas@cristofaro.dev"
+
+- name: Phone
+  icon: "fa fa-phone"
+  url: "+393208032666"
+
+- name: Whatsapp
+  icon: "fab fa-whatsapp"
+  url: "https://wa.me/393208032666"

@@ -14,8 +14,16 @@ summary: "Sono un libero professionista specializzato in tecnologie Microsoft co
 # your social links
 socialLinks:
 - name: Email
-  icon: "fas fa-envelope"
+  icon: "fa fa-envelope"
   url: "thomas@cristofaro.dev"
+
+- name: Phone
+  icon: "fa fa-phone"
+  url: "+393208032666"
+
+- name: Whatsapp
+  icon: "fab fa-whatsapp"
+  url: "https://wa.me/393208032666"
 
 - name: Github
   icon: "fab fa-github"
@@ -41,7 +49,7 @@ badges:
 
 - type: soft-skill-indicator
   name: Team Work
-  percentage: 80
+  percentage: 85
   color: yellow
 
 - type: soft-skill-indicator

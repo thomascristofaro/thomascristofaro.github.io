@@ -116,7 +116,7 @@
     {{ if $author.subtitle }}
       <h2 class="greeting-subtitle">{{ $author.subtitle }}</h2>
     {{ end }}
-    <div class="typing-carousel">
+    <div class="typing-carousel mb-3">
       <span id="ityped" class="ityped"></span>
       <span class="ityped-cursor"></span>
     </div>
@@ -125,6 +125,19 @@
         {{ range $author.summary }}
           <li>{{ . }}</li>
         {{ end}}
+      {{ end }}
+    </ul>
+    <ul class="social-link d-flex justify-content-center">
+      {{ range $author.socialLinks }}
+      <li>
+        {{ if eq .name "Email" }}
+          <a href="mailto:{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+        {{ else if eq .name "Phone" }}
+          <a href="tel:{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+        {{ else }}
+          <a href="{{ .url }}" title="{{ .name }}" target="_blank" rel="{{.rel | default "noopener"}}"><i class="{{ .icon }}"></i></a>
+        {{ end }}
+      </li>
       {{ end }}
     </ul>
     {{ if $sections }}

@@ -6,6 +6,23 @@
     
     .background{
       filter: none;
-    }  
+    }
+
+    .social-link {
+      list-style: none;
+      padding: 0.2rem;
+  
+      a {
+        font-size: 1.5rem;
+        color: get-light-color('text-over-accent-color');
+        padding: 0.5rem;
+  
+        &:hover {
+          color: get-light-color('accent-color');
+          @include transition();
+        }
+      }
+    }
+  
   }
   

@@ -25,8 +25,16 @@ summary: 'I am a freelance professional specializing in Microsoft technologies w
 # give as many as you want. use font-awesome for the icons.
 socialLinks:
 - name: Email
-  icon: "fas fa-envelope"
+  icon: "fa fa-envelope"
   url: "thomas@cristofaro.dev"
+
+- name: Phone
+  icon: "fa fa-phone"
+  url: "+393208032666"
+
+- name: Whatsapp
+  icon: "fab fa-whatsapp"
+  url: "https://wa.me/393208032666"
 
 - name: Github
   icon: "fab fa-github"
@@ -58,7 +66,7 @@ badges:
 
 - type: soft-skill-indicator
   name: Team Work
-  percentage: 80
+  percentage: 85
   color: yellow
 
 - type: soft-skill-indicator
