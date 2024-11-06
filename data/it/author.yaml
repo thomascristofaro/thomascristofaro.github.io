@@ -5,7 +5,7 @@ greeting: "Ciao, sono"
 image: "images/author/thomas.jpg"
 
 contactInfo:
-  email: "thomas@cristofaro.dev"
+  email: "cristofaro.thomas@gmail.com"
   phone: "+393208032666"
   github: thomascristofaro
   linkedin: thomascristofaro
@@ -19,7 +19,7 @@ summary:
 socialLinks:
 - name: Email
   icon: "fa fa-envelope"
-  url: "thomas@cristofaro.dev"
+  url: "cristofaro.thomas@gmail.com"
 
 - name: Phone
   icon: "fa fa-phone"
