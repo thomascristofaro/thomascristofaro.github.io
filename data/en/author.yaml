@@ -6,7 +6,7 @@ greeting: "Hi, I am"
 image: "images/author/thomas.jpg"
 # give your some contact information. they will be used in the footer
 contactInfo:
-  email: "cristofaro.thomas@gmail.com"
+  email: "thomas@cristofaro.dev"
   phone: "+393208032666"
   github: thomascristofaro
   linkedin: thomascristofaro
@@ -22,7 +22,7 @@ summary:
 socialLinks:
 - name: Email
   icon: "fa fa-envelope"
-  url: "cristofaro.thomas@gmail.com"
+  url: "thomas@cristofaro.dev"
 
 - name: Phone
   icon: "fa fa-phone"

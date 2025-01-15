@@ -44,7 +44,9 @@
     {{ end }}
 
     {{ if $sections }}
-      {{ $background:= "bg-secondary"}}
+      <!-- Se metti i post come prima sezione allora scommenta -->
+      <!-- {{ $background:= "bg-secondary"}} -->
+      {{ $background:= "bg-primary"}}
       {{ range sort $sections "section.weight" }}
         {{ if .section.enable }}
           <div class="container-fluid section-holder d-flex {{ $background }}">
