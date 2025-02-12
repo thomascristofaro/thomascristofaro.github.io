@@ -2,6 +2,7 @@
 name: "Thomas Cristofaro"
 nickname: "Thomas"
 greeting: "Ciao, sono"
+subtitle: "Hai un'idea? Parliamone!"
 image: "images/author/thomas.jpg"
 
 contactInfo:
@@ -28,3 +29,5 @@ socialLinks:
 - name: Whatsapp
   icon: "fab fa-whatsapp"
   url: "https://wa.me/393208032666"
+
+resume: "files/CV Thomas Cristofaro.pdf"

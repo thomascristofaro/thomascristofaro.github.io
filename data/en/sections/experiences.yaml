@@ -11,6 +11,15 @@ section:
 # Your experiences
 experiences:
 - company:
+    location: Full Remote
+    logo: /images/sections/experiences/microsoft-logo.png
+  positions:
+  - designation: Microsoft Solutions Freelancer
+    start: Nov 2024
+    responsibilities: 
+    - I work with companies from various industries to deliver tailored solutions within the Microsoft ecosystem. My expertise focuses on Dynamics 365 Business Central, Microsoft Power Platform, and Azure, helping businesses streamline processes and drive innovation.
+
+- company:
     name: Fondazione ITS ICT Piemonte
     url: "https://www.its-ictpiemonte.it/"
     location: Torino
@@ -20,6 +29,7 @@ experiences:
   positions:
   - designation: Microsoft Software Trainer
     start: Dec 2022
+    end: Dec 2024
     responsibilities:
     - Technical Coordinator of the two-year Business App Developer program.
     - Teacher of "Business Central Development" course and various project laboratories. 
@@ -54,6 +64,6 @@ experiences:
     logo: /images/sections/experiences/olab.png
     overview: Software house specializing in product development with Django/Python.
   positions:
-  - designation: Web Developer Intern
+  - designation: Web Developer
     start: Jul 2015
     end: Sep 2015

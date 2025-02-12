@@ -12,7 +12,7 @@
   <div class="row pt-sm-2 pt-md-4 align-self-center">
     <!-- summary -->
     <!-- takes up full section width if no badges/soft skills are specified -->
-    {{ if or (.softSkills) (.badges) }} <div class="col-sm-6"> {{ else }} <div class="col-sm-12"> {{ end }}
+    {{ if .badges }} <div class="col-sm-6"> {{ else }} <div class="col-sm-12"> {{ end }}
       <h3 class="p-1">{{ $author.name }}</h3>
       {{ if .designation }}
       <h5 class="p-1">
@@ -40,8 +40,8 @@
           {{ end }}
         </ul>
       </div>
-      {{ if .resume }}
-      <a href="{{ .resume | relURL }}" title="{{ i18n "resume"}}" target="#"
+      {{ if $author.resume }}
+      <a href="{{ $author.resume | relURL }}" title="{{ i18n "resume"}}" target="#"
         ><button class="btn btn-dark">{{ i18n "resume"}}</button></a
       >
       {{ end }}
@@ -52,15 +52,11 @@
       {{ end }}
     </div>
     <!-- soft skills circular-progressbar -->
-    <div class="col-sm-6 pt-5 ps-md-4 ps-sm-3 pt-sm-0">
+    <div class="col-lg-2"></div> 
+    <div class="col-sm-6 col-lg-4 pt-5 ps-md-4 ps-sm-3 pt-sm-0">
       <div class="row">
         {{ range .badges }}
           {{ partial "misc/badge.html" . }}
-        {{ end }}
-        <!-- TODO: Remove this part in version v4+ -->
-        <!-- Keep backward compatibility with old configuration -->
-        {{ range .softSkills }}
-          {{ partial "misc/soft-skills.html" . }}
         {{ end }}
       </div>
     </div>

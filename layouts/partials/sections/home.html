@@ -113,9 +113,6 @@
       alt="Author Image"
     />
     <h1 class="greeting"> {{ $author.greeting }} {{ $name }}</h1>
-    {{ if $author.subtitle }}
-      <h2 class="greeting-subtitle">{{ $author.subtitle }}</h2>
-    {{ end }}
     <div class="typing-carousel mb-3">
       <span id="ityped" class="ityped"></span>
       <span class="ityped-cursor"></span>
@@ -127,6 +124,9 @@
         {{ end}}
       {{ end }}
     </ul>
+    {{ if $author.subtitle }}
+    <h4 class="greeting-subtitle">{{ $author.subtitle }}</h4>
+    {{ end }}
     <ul class="social-link d-flex justify-content-center">
       {{ range $author.socialLinks }}
       <li>
@@ -140,6 +140,10 @@
       </li>
       {{ end }}
     </ul>
+    {{ if $author.resume }}
+    <a href="{{ $author.resume | relURL }}" title="{{ i18n "resume"}}" target="#"
+      ><button class="btn btn-dark">{{ i18n "resume"}}</button></a>
+    {{ end }}
     {{ if $sections }}
       {{ range first 1 (where (sort $sections "section.weight") ".section.enable" true) }}
         {{ $sectionID := replace (lower .section.name) " " "-"  }}

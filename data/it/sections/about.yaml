@@ -33,29 +33,29 @@ socialLinks:
   icon: "fab fa-linkedin"
   url: "https://www.linkedin.com/in/thomascristofaro/"
 
-# You can put custom buttons to link your relevant resources.
-resourceLinks:
-- title: "Curriculum Vitae"
-  url: "files/CV Thomas Cristofaro.pdf"
-
 # Show your badges
 # You can show your verifiable certificates from https://www.credly.com.
 # You can also show a circular bar indicating the level of expertise on a certain skill
 badges:
 - type: certification
+  name: Microsoft AI-102
+  url: "https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-engineer"
+  badge: "https://images.credly.com/size/340x340/images/61f56aa4-16fd-403c-90bc-1d90dba1fa99/image.png"
+
+- type: certification
   name: Specialization in Digital Transformation
-  url: "https://bestr.it/badge/show/4175"
+  url: "https://www.gsom.polimi.it/course/percorso-executive-digital-transformation-flex/"
   badge: "https://bestr.it/filemanager/show/eda99c8f-d290-4492-9685-3e36c322cffe.png"
 
 - type: soft-skill-indicator
   name: Team Work
-  percentage: 85
+  percentage: 80
   color: yellow
 
 - type: soft-skill-indicator
   name: Problem Solving
   percentage: 90
-  color: orange
+  color: green
 
 # - type: soft-skill-indicator
 #   name: Leadership
